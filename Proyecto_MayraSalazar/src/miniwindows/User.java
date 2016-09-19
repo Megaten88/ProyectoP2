@@ -3,6 +3,7 @@ package miniwindows;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -11,6 +12,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String user;
     private String password;
+    private ArrayList<Actividad> actividades;
     private static long SerialVersionUID = 866L;
 
     public User(String user, String password) {

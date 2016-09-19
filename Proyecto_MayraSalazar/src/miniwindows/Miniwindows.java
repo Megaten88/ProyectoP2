@@ -5,9 +5,15 @@
  */
 package miniwindows;
 
+import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -26,6 +32,9 @@ public class Miniwindows extends javax.swing.JFrame {
         pn_login.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./sky.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         pn_login.setVisible(true);
         this.setTitle("Log to MiniWindows System");
+        this.consola.setCaretColor(Color.white);
+        this.Consola.setTitle("MiniWindows Console");
+        deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./flor.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
     }
 
     /**
@@ -40,6 +49,11 @@ public class Miniwindows extends javax.swing.JFrame {
         Desktop = new javax.swing.JDialog();
         deskpanel = new com.bolivia.panel.JCPanel();
         jButton3 = new javax.swing.JButton();
+        Consola = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consola = new javax.swing.JTextPane();
+        Calendar = new javax.swing.JDialog();
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         pn_login = new com.bolivia.panel.JCPanel();
         jLabel1 = new javax.swing.JLabel();
         tf_user = new javax.swing.JTextField();
@@ -48,7 +62,7 @@ public class Miniwindows extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        jButton3.setText("jButton3");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/cmd.jpg"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -60,27 +74,65 @@ public class Miniwindows extends javax.swing.JFrame {
         deskpanelLayout.setHorizontalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deskpanelLayout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jButton3)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 602, Short.MAX_VALUE))
         );
         deskpanelLayout.setVerticalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, deskpanelLayout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(95, 95, 95))
+            .addGroup(deskpanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(359, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop.getContentPane());
         Desktop.getContentPane().setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+        );
+
+        Consola.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        consola.setBackground(new java.awt.Color(0, 0, 0));
+        consola.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 12)); // NOI18N
+        consola.setForeground(new java.awt.Color(255, 255, 255));
+        consola.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                consolaKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(consola);
+
+        javax.swing.GroupLayout ConsolaLayout = new javax.swing.GroupLayout(Consola.getContentPane());
+        Consola.getContentPane().setLayout(ConsolaLayout);
+        ConsolaLayout.setHorizontalGroup(
+            ConsolaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        ConsolaLayout.setVerticalGroup(
+            ConsolaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout CalendarLayout = new javax.swing.GroupLayout(Calendar.getContentPane());
+        Calendar.getContentPane().setLayout(CalendarLayout);
+        CalendarLayout.setHorizontalGroup(
+            CalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CalendarLayout.createSequentialGroup()
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 228, Short.MAX_VALUE))
+        );
+        CalendarLayout.setVerticalGroup(
+            CalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CalendarLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,11 +229,11 @@ public class Miniwindows extends javax.swing.JFrame {
             this.Desktop.pack();
             this.Desktop.setLocationRelativeTo(this);
             this.Desktop.setVisible(true);
+            path += "\\" + logAs;
         } else {
             boolean isUser = false;
             for (int i = 0; i < users.size(); i++) {
                 if (tf_user.getText().equals(users.get(i).getUser()) && pf_password.getText().equals(users.get(i).getPassword())) {
-                    isUser = true;
                 }
             }
             if (isUser) {
@@ -190,17 +242,91 @@ public class Miniwindows extends javax.swing.JFrame {
                 this.Desktop.pack();
                 this.Desktop.setLocationRelativeTo(this);
                 this.Desktop.setVisible(true);
-            }else{
+                path += "\\" + logAs;
+            } else {
                 JOptionPane.showMessageDialog(this, "No existe el usuario.");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Consola consola = new Consola();
-        String[] arg = {};
-        Consola.main(arg);
+        this.Consola.pack();
+        this.Consola.setLocationRelativeTo(this);
+        this.Consola.setVisible(true);
+        this.consola.setText(path + ">\n");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void consolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyPressed
+        this.consola.setCaretColor(Color.white);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String text = this.consola.getText();
+            String textoPane = this.consola.getText();
+            String[] lines = text.split("\n");
+            String lastline = lines[lines.length - 1];
+            Scanner read = new Scanner(lastline);
+            read.useDelimiter(">");
+            String[] containers = new String[1];
+            int index = 0;
+            while (read.hasNext()) {
+                containers[index] = read.next();
+                index++;
+            }
+            if (containers[0] != null) {
+                String dir = containers[0];
+                if (dir.contains("mkdir ")) {
+                    dir = dir.replace("mkdir ", "").replace(" ", "");
+                    if (createDirectory(path + "\\" + dir)) {
+                        textoPane += "\n El directorio ya existe\n";
+                    }
+                } else if (dir.contains("rm ")) {
+                    dir = dir.replace("rm ", "");
+                    borrar(path + "\\" + dir);
+                } else if (dir.contains("cd ") && !dir.contains("..")) {
+                    dir = dir.replace("cd ", "");
+                    if ((new File(path += "\\" + dir).exists())) {
+                        System.out.println("exists");
+                    } else {
+                        textoPane += "\n El directorio no existe";
+                        path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                    }
+                } else if (dir.contains("cd ..")) {
+                    path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                } else if (dir.contains("time")) {
+                    DateFormat f = new SimpleDateFormat("HH:mm:ss");
+                    Date date = new Date();
+                    textoPane += "\n La hora actual es: " + f.format(date);
+                } else if (dir.contains("date")) {
+                    Date date = new Date();
+                    DateFormat f = new SimpleDateFormat("dd/MMMM/YYYY");
+                    textoPane += "\n La fecha actual es: " + f.format(date);
+                } else if (dir.contains("help")) {
+                    textoPane += "\n-----Help------"
+                            + "\n mkdir ------- Crea un directorio"
+                            + "\n rm ---------- Elimina un archivo o directorio"
+                            + "\n cd ---------- Commando para moverse entre carpetas"
+                            + "\n time -------- Da la hora actual"
+                            + "\n date -------- Da la fecha actual"
+                            + "\n dir --------- Lista todo en la carpeta actual";
+                } else if (dir.contains("dir") && !dir.contains("mkdir")) {
+                    File direc = new File(path);
+                    File[] files = direc.listFiles();
+                    for (File file : files) {
+                        if (file.isDirectory()) {
+                            textoPane += "\n Directorio: " + file.getName();
+                        }
+                        if (file.isFile()) {
+                            textoPane += "\nArchivo: " + file.getName();
+                        }
+                    }
+                } else {
+                    textoPane += "Ingrese un comando válido, escriba help para ver comandos\n";
+                }
+                index = 0;
+            }
+            textoPane += "\n" + path + ">";
+            consola.setText(textoPane);
+        }
+    }//GEN-LAST:event_consolaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -213,7 +339,7 @@ public class Miniwindows extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -238,13 +364,18 @@ public class Miniwindows extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Calendar;
+    private javax.swing.JDialog Consola;
     private javax.swing.JDialog Desktop;
+    private javax.swing.JTextPane consola;
     private com.bolivia.panel.JCPanel deskpanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPasswordField pf_password;
     private com.bolivia.panel.JCPanel pn_login;
     private javax.swing.JTextField tf_user;
@@ -253,4 +384,24 @@ public class Miniwindows extends javax.swing.JFrame {
     String admin = "Admin";
     String password = "password";
     ArrayList<User> users = new ArrayList();
+    String path = "./Z\\Users";
+
+    public boolean createDirectory(String path) {
+        if (new File(path).exists()) {
+            return true;
+        } else {
+            new File(path).mkdir();
+            return false;
+        }
+
+    }
+
+    public void borrar(String path) {
+        if (new File(path).isDirectory()) {
+
+        } else {
+            new File(path).delete();
+        }
+
+    }
 }
