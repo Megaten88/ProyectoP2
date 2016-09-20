@@ -8,8 +8,11 @@ package miniwindows;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -244,11 +247,12 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addGroup(MP3PlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(forwardsong, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addGroup(MP3PlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backsong, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(playpause))
+                    .addGroup(MP3PlayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(forwardsong, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addComponent(playpause)))
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -416,10 +420,8 @@ public class Miniwindows extends javax.swing.JFrame {
                 } else if (dir.contains("cd ..")) {
                     if (logAs.equals("Admin") && !path.equals("./Z")) {
                         path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
-                    } else {
-                        if (!path.equals("./Z\\Users\\" + logAs)) {
-                            
-                        }
+                    } else if (!path.equals("./Z\\Users\\" + logAs)) {
+
                     }
                 } else if (dir.contains("time")) {
                     DateFormat f = new SimpleDateFormat("HH:mm:ss");
@@ -470,6 +472,9 @@ public class Miniwindows extends javax.swing.JFrame {
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Música", "mp3");
         chooser.setFileFilter(filtro);
         int op = chooser.showOpenDialog(MP3Player);
+        if (op == JFileChooser.APPROVE_OPTION){
+           
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
