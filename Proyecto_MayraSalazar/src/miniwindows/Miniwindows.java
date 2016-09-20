@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileFilter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -415,7 +417,7 @@ public class Miniwindows extends javax.swing.JFrame {
                     if (logAs.equals("Admin") && !path.equals("./Z")) {
                         path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
                     } else {
-                        if (!path.equals("./Z\\Users")) {
+                        if (!path.equals("./Z\\Users\\" + logAs)) {
                             
                         }
                     }
@@ -464,7 +466,10 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_openplayerActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        JFileChooser chooser = new JFileChooser(path);
+        JFileChooser chooser = new JFileChooser(path + "\\Music");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Música", "mp3");
+        chooser.setFileFilter(filtro);
+        int op = chooser.showOpenDialog(MP3Player);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
