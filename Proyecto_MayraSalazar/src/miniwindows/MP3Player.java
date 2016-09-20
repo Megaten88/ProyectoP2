@@ -16,7 +16,7 @@ import javazoom.jl.player.Player;
  *
  * @author Sindy
  */
-public class MP3Player{
+public class MP3Player {
 
     private final static int INIT = 0;
     private final static int PLAYING = 1;
@@ -30,8 +30,9 @@ public class MP3Player{
     private int status = INIT;
 
     public MP3Player() {
-        
+
     }
+
     public MP3Player(final InputStream inputStream) throws JavaLayerException {
         this.player = new Player(inputStream);
     }
@@ -63,6 +64,7 @@ public class MP3Player{
             }
         }
     }
+
     public boolean pause() {
         synchronized (communicate) {
             if (status == PLAYING) {
@@ -71,6 +73,7 @@ public class MP3Player{
             return status == PAUSED;
         }
     }
+
     public boolean resume() {
         synchronized (communicate) {
             if (status == PAUSED) {
@@ -80,6 +83,7 @@ public class MP3Player{
             return status == PLAYING;
         }
     }
+
     public void stop() {
         synchronized (communicate) {
             status = STOP;
@@ -118,4 +122,21 @@ public class MP3Player{
         } catch (final Exception e) {
         }
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
 }
