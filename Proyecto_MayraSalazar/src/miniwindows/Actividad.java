@@ -9,10 +9,10 @@ import java.util.Date;
  * @author Mayra Salazar
  */
 public class Actividad implements Serializable{
-    Date fecha;
-    String titulo;
-    int recordatorio;
-    private static long SerialVersionUID = 655L;
+    protected Date fecha;
+    protected String titulo;
+    protected int recordatorio;
+    protected static long SerialVersionUID = 655L;
 
     public Actividad(Date fecha, String titulo, int recordatorio) {
         this.fecha = fecha;
