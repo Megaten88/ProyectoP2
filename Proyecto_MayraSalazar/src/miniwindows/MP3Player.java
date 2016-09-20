@@ -23,12 +23,15 @@ public class MP3Player{
     private final static int PAUSED = 2;
     private final static int STOP = 3;
 
-    private final Player player;
+    private Player player;
 
     private final Object communicate = new Object();
 
-    private int playerStatus = INIT;
+    private int status = INIT;
 
+    public MP3Player() {
+        
+    }
     public MP3Player(final InputStream inputStream) throws JavaLayerException {
         this.player = new Player(inputStream);
     }
@@ -39,7 +42,7 @@ public class MP3Player{
 
     public void play() throws JavaLayerException {
         synchronized (communicate) {
-            switch (playerStatus) {
+            switch (status) {
                 case INIT:
                     final Runnable r = new Runnable() {
                         public void run() {
@@ -49,7 +52,7 @@ public class MP3Player{
                     final Thread t = new Thread(r);
                     t.setDaemon(true);
                     t.setPriority(Thread.MAX_PRIORITY);
-                    playerStatus = PLAYING;
+                    status = PLAYING;
                     t.start();
                     break;
                 case PAUSED:
@@ -62,30 +65,30 @@ public class MP3Player{
     }
     public boolean pause() {
         synchronized (communicate) {
-            if (playerStatus == PLAYING) {
-                playerStatus = PAUSED;
+            if (status == PLAYING) {
+                status = PAUSED;
             }
-            return playerStatus == PAUSED;
+            return status == PAUSED;
         }
     }
     public boolean resume() {
         synchronized (communicate) {
-            if (playerStatus == PAUSED) {
-                playerStatus = PLAYING;
+            if (status == PAUSED) {
+                status = PLAYING;
                 communicate.notifyAll();
             }
-            return playerStatus == PLAYING;
+            return status == PLAYING;
         }
     }
     public void stop() {
         synchronized (communicate) {
-            playerStatus = STOP;
+            status = STOP;
             communicate.notifyAll();
         }
     }
 
     private void playInternal() {
-        while (playerStatus != STOP) {
+        while (status != STOP) {
             try {
                 if (!player.play(1)) {
                     break;
@@ -94,7 +97,7 @@ public class MP3Player{
                 break;
             }
             synchronized (communicate) {
-                while (playerStatus == PAUSED) {
+                while (status == PAUSED) {
                     try {
                         communicate.wait();
                     } catch (final InterruptedException e) {
@@ -108,7 +111,7 @@ public class MP3Player{
 
     public void close() {
         synchronized (communicate) {
-            playerStatus = STOP;
+            status = STOP;
         }
         try {
             player.close();

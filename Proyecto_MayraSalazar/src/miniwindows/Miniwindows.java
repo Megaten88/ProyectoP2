@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,7 +38,7 @@ public class Miniwindows extends javax.swing.JFrame {
         this.deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./flor.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.Desktop.setTitle("Welcome to MiniWindows!");
         this.MP3Player.setTitle("MiniWindowsPlayer");
-}
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -175,6 +176,11 @@ public class Miniwindows extends javax.swing.JFrame {
         forwardsong.setText(">>");
 
         jButton4.setText("Add");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         lb_playing.setText("Playing: ");
 
@@ -345,6 +351,7 @@ public class Miniwindows extends javax.swing.JFrame {
             this.Desktop.setLocationRelativeTo(this);
             this.Desktop.setVisible(true);
             path += "\\" + logAs;
+            System.out.println(path);
         } else {
             boolean isUser = false;
             for (int i = 0; i < users.size(); i++) {
@@ -405,7 +412,13 @@ public class Miniwindows extends javax.swing.JFrame {
                         path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
                     }
                 } else if (dir.contains("cd ..")) {
-                    path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                    if (logAs.equals("Admin") && !path.equals("./Z")) {
+                        path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                    } else {
+                        if (!path.equals("./Z\\Users")) {
+                            
+                        }
+                    }
                 } else if (dir.contains("time")) {
                     DateFormat f = new SimpleDateFormat("HH:mm:ss");
                     Date date = new Date();
@@ -423,6 +436,7 @@ public class Miniwindows extends javax.swing.JFrame {
                             + "\n date -------- Da la fecha actual"
                             + "\n dir --------- Lista todo en la carpeta actual";
                 } else if (dir.contains("dir") && !dir.contains("mkdir")) {
+                    System.out.println(path);
                     File direc = new File(path);
                     File[] files = direc.listFiles();
                     for (File file : files) {
@@ -434,7 +448,7 @@ public class Miniwindows extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    textoPane += "Ingrese un comando válido, escriba help para ver comandos\n";
+                    textoPane += "\nIngrese un comando válido, escriba help para ver comandos\n";
                 }
                 index = 0;
             }
@@ -448,6 +462,10 @@ public class Miniwindows extends javax.swing.JFrame {
         this.MP3Player.setLocationRelativeTo(this);
         this.MP3Player.setVisible(true);
     }//GEN-LAST:event_openplayerActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        JFileChooser chooser = new JFileChooser(path);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
