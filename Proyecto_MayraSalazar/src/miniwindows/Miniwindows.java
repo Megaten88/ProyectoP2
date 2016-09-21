@@ -148,9 +148,6 @@ public class Miniwindows extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tpText = new javax.swing.JTextPane();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jSeparator7 = new javax.swing.JToolBar.Separator();
         comboxFonts = new javax.swing.JComboBox<>();
         jSeparator6 = new javax.swing.JToolBar.Separator();
@@ -528,27 +525,6 @@ public class Miniwindows extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tpText);
 
         jToolBar1.setRollover(true);
-
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton6.setText("Copiar");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton7.setText("Cortar");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
-
-        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jButton8.setText("Pegar");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
         jToolBar1.add(jSeparator7);
 
         comboxFonts.addActionListener(new java.awt.event.ActionListener() {
@@ -560,6 +536,7 @@ public class Miniwindows extends javax.swing.JFrame {
         jToolBar1.add(jSeparator6);
 
         comboxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
+        comboxSize.setPreferredSize(new java.awt.Dimension(20, 20));
         comboxSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboxSizeActionPerformed(evt);
@@ -568,7 +545,7 @@ public class Miniwindows extends javax.swing.JFrame {
         jToolBar1.add(comboxSize);
         jToolBar1.add(jSeparator3);
 
-        btnBold.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnBold.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         btnBold.setText("B");
         btnBold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,7 +554,7 @@ public class Miniwindows extends javax.swing.JFrame {
         });
         jToolBar1.add(btnBold);
 
-        btnItalics.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        btnItalics.setFont(new java.awt.Font("Times New Roman", 2, 24)); // NOI18N
         btnItalics.setText("I");
         btnItalics.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -586,7 +563,7 @@ public class Miniwindows extends javax.swing.JFrame {
         });
         jToolBar1.add(btnItalics);
 
-        btnUnderline.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnUnderline.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         btnUnderline.setText("U");
         btnUnderline.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -596,7 +573,7 @@ public class Miniwindows extends javax.swing.JFrame {
         jToolBar1.add(btnUnderline);
         jToolBar1.add(jSeparator4);
 
-        btnColor.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnColor.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         btnColor.setText("Color");
         btnColor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -607,19 +584,14 @@ public class Miniwindows extends javax.swing.JFrame {
         jToolBar1.add(jSeparator5);
 
         btnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/left-alignment.png"))); // NOI18N
-        btnLeft.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLeftMouseClicked(evt);
+        btnLeft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeftActionPerformed(evt);
             }
         });
         jToolBar1.add(btnLeft);
 
         btnCenter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/center-alignment.png"))); // NOI18N
-        btnCenter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCenterMouseClicked(evt);
-            }
-        });
         btnCenter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCenterActionPerformed(evt);
@@ -628,17 +600,17 @@ public class Miniwindows extends javax.swing.JFrame {
         jToolBar1.add(btnCenter);
 
         btnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/right-alignment.png"))); // NOI18N
-        btnRight.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRightMouseClicked(evt);
+        btnRight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRightActionPerformed(evt);
             }
         });
         jToolBar1.add(btnRight);
 
         btnJustified.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/justify.png"))); // NOI18N
-        btnJustified.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnJustifiedMouseClicked(evt);
+        btnJustified.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJustifiedActionPerformed(evt);
             }
         });
         jToolBar1.add(btnJustified);
@@ -657,9 +629,9 @@ public class Miniwindows extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Archivo");
@@ -1203,53 +1175,6 @@ public class Miniwindows extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnColorMouseClicked
 
-    private void btnRightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRightMouseClicked
-        if (right) {
-            right = false;
-            left = true;
-        } else {
-            left = false;
-            center = false;
-            right = true;
-            justified = false;
-        }
-        EditIdent();
-    }//GEN-LAST:event_btnRightMouseClicked
-
-    private void btnJustifiedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJustifiedMouseClicked
-        if (justified) {
-            justified = false;
-            left = true;
-        } else {
-            left = false;
-            center = false;
-            right = false;
-            justified = true;
-        }
-        EditIdent();
-    }//GEN-LAST:event_btnJustifiedMouseClicked
-
-    private void btnLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLeftMouseClicked
-        left = true;
-        center = false;
-        right = false;
-        justified = false;
-        EditIdent();
-    }//GEN-LAST:event_btnLeftMouseClicked
-
-    private void btnCenterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCenterMouseClicked
-        if (center) {
-            center = false;
-            left = true;
-        } else {
-            left = false;
-            center = true;
-            right = false;
-            justified = false;
-        }
-        EditIdent();
-    }//GEN-LAST:event_btnCenterMouseClicked
-
     private void mibtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveActionPerformed
         saveFile(currentFile);
     }//GEN-LAST:event_mibtnSaveActionPerformed
@@ -1362,8 +1287,51 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUnderlineActionPerformed
 
     private void btnCenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCenterActionPerformed
-        // TODO add your handling code here:
+       if (center) {
+            center = false;
+            left = true;
+        } else {
+            left = false;
+            center = true;
+            right = false;
+            justified = false;
+        }
+        EditIdent();
     }//GEN-LAST:event_btnCenterActionPerformed
+
+    private void btnLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeftActionPerformed
+        left = true;
+        center = false;
+        right = false;
+        justified = false;
+        EditIdent();
+    }//GEN-LAST:event_btnLeftActionPerformed
+
+    private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
+         if (right) {
+            right = false;
+            left = true;
+        } else {
+            left = false;
+            center = false;
+            right = true;
+            justified = false;
+        }
+        EditIdent();
+    }//GEN-LAST:event_btnRightActionPerformed
+
+    private void btnJustifiedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustifiedActionPerformed
+         if (justified) {
+            justified = false;
+            left = true;
+        } else {
+            left = false;
+            center = false;
+            right = false;
+            justified = true;
+        }
+        EditIdent();
+    }//GEN-LAST:event_btnJustifiedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1439,9 +1407,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
