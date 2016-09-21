@@ -8,10 +8,14 @@ package miniwindows;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.text.DateFormat;
@@ -22,12 +26,16 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -44,12 +52,22 @@ public class Miniwindows extends javax.swing.JFrame {
         this.pn_login.setVisibleLogo(false);
         this.pn_login.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./sky.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.pn_login.setVisible(true);
+        this.pn_agregar.setVisibleLogo(false);
+        this.agregarUs.setTitle("Agrega un usuario");
+        this.pn_agregar.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./space.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
+        this.pn_agregar.setVisible(true);
         this.setTitle("Log to MiniWindows System");
         this.consola.setCaretColor(Color.white);
         this.Consola.setTitle("MiniWindows Console");
         this.deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./flor.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.Desktop.setTitle("Welcome to MiniWindows!");
         this.MP3Player.setTitle("MiniWindowsPlayer");
+        HiloHora hour = new HiloHora(hora);
+        try {
+            hour.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -67,9 +85,13 @@ public class Miniwindows extends javax.swing.JFrame {
         openplayer = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         barPrincipal = new javax.swing.JMenuBar();
-        logOut = new javax.swing.JMenu();
-        name = new javax.swing.JMenu();
         hora = new javax.swing.JMenu();
+        name = new javax.swing.JMenu();
+        logOut = new javax.swing.JMenu();
+        change = new javax.swing.JMenuItem();
+        cambiarc = new javax.swing.JMenuItem();
+        addUser = new javax.swing.JMenuItem();
+        apagar = new javax.swing.JMenuItem();
         Consola = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         consola = new javax.swing.JTextPane();
@@ -115,7 +137,15 @@ public class Miniwindows extends javax.swing.JFrame {
         abrir_archivo = new javax.swing.JMenuItem();
         guardar = new javax.swing.JMenuItem();
         guardarC = new javax.swing.JMenuItem();
-        jSeparator3 = new javax.swing.JSeparator();
+        Visor = new javax.swing.JDialog();
+        Mensajes = new javax.swing.JDialog();
+        agregarUs = new javax.swing.JDialog();
+        pn_agregar = new com.bolivia.panel.JCPanel();
+        jLabel5 = new javax.swing.JLabel();
+        tf_adduser = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        pf_addpass = new javax.swing.JPasswordField();
+        agregar = new javax.swing.JButton();
         pn_login = new com.bolivia.panel.JCPanel();
         jLabel1 = new javax.swing.JLabel();
         tf_user = new javax.swing.JTextField();
@@ -158,26 +188,55 @@ public class Miniwindows extends javax.swing.JFrame {
         deskpanelLayout.setVerticalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deskpanelLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addContainerGap()
                 .addComponent(opencmd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         barPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        barPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         barPrincipal.setForeground(new java.awt.Color(255, 255, 255));
-
-        logOut.setText("File");
-        barPrincipal.add(logOut);
-
-        name.setText("Edit");
+        barPrincipal.add(hora);
         barPrincipal.add(name);
 
-        hora.setText("jMenu1");
-        barPrincipal.add(hora);
+        logOut.setText("Log");
+
+        change.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        change.setText("Cerrar Sesión");
+        logOut.add(change);
+
+        cambiarc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        cambiarc.setText("Cambiar Contraseña");
+        cambiarc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarcActionPerformed(evt);
+            }
+        });
+        logOut.add(cambiarc);
+
+        addUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
+        addUser.setText("Agregar Usuario");
+        addUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserActionPerformed(evt);
+            }
+        });
+        logOut.add(addUser);
+
+        apagar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
+        apagar.setText("Apagar");
+        apagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarActionPerformed(evt);
+            }
+        });
+        logOut.add(apagar);
+
+        barPrincipal.add(logOut);
 
         Desktop.setJMenuBar(barPrincipal);
 
@@ -418,6 +477,8 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.setBackground(new java.awt.Color(8, 163, 179));
+
         editorpane.setContentType("text/html"); // NOI18N
         editorpane.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r\n    <p>\r\n    </p>\r\n  </body>\r\n</html>\r\n");
         jScrollPane6.setViewportView(editorpane);
@@ -460,6 +521,11 @@ public class Miniwindows extends javax.swing.JFrame {
         italic.setFocusable(false);
         italic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         italic.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        italic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                italicActionPerformed(evt);
+            }
+        });
         jToolBar1.add(italic);
 
         underline.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -467,6 +533,11 @@ public class Miniwindows extends javax.swing.JFrame {
         underline.setFocusable(false);
         underline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        underline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                underlineActionPerformed(evt);
+            }
+        });
         jToolBar1.add(underline);
         jToolBar1.add(jSeparator5);
 
@@ -474,21 +545,19 @@ public class Miniwindows extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane6)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(30, 30, 30))
         );
 
         menu_archivos.setText("Archivo");
@@ -504,6 +573,11 @@ public class Miniwindows extends javax.swing.JFrame {
 
         guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
         menu_archivos.add(guardar);
 
         guardarC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -523,6 +597,96 @@ public class Miniwindows extends javax.swing.JFrame {
         EditorLayout.setVerticalGroup(
             EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout VisorLayout = new javax.swing.GroupLayout(Visor.getContentPane());
+        Visor.getContentPane().setLayout(VisorLayout);
+        VisorLayout.setHorizontalGroup(
+            VisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        VisorLayout.setVerticalGroup(
+            VisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout MensajesLayout = new javax.swing.GroupLayout(Mensajes.getContentPane());
+        Mensajes.getContentPane().setLayout(MensajesLayout);
+        MensajesLayout.setHorizontalGroup(
+            MensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        MensajesLayout.setVerticalGroup(
+            MensajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("User");
+
+        tf_adduser.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Password");
+
+        agregar.setText("Agregar");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pn_agregarLayout = new javax.swing.GroupLayout(pn_agregar);
+        pn_agregar.setLayout(pn_agregarLayout);
+        pn_agregarLayout.setHorizontalGroup(
+            pn_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_agregarLayout.createSequentialGroup()
+                .addGroup(pn_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pn_agregarLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_adduser, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pn_agregarLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pf_addpass, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_agregarLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
+        );
+        pn_agregarLayout.setVerticalGroup(
+            pn_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pn_agregarLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(pn_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_adduser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(pn_agregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pf_addpass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout agregarUsLayout = new javax.swing.GroupLayout(agregarUs.getContentPane());
+        agregarUs.getContentPane().setLayout(agregarUsLayout);
+        agregarUsLayout.setHorizontalGroup(
+            agregarUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pn_agregar, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        agregarUsLayout.setVerticalGroup(
+            agregarUsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pn_agregar, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -619,12 +783,13 @@ public class Miniwindows extends javax.swing.JFrame {
             this.Desktop.pack();
             this.Desktop.setLocationRelativeTo(this);
             this.Desktop.setVisible(true);
-            path ="./Z\\Users\\" + logAs;
+            name.setText(logAs);
+            path = "./Z\\Users\\" + logAs;
             System.out.println(path);
             music = new ArrayList();
             listaMusic.setModel(new DefaultListModel());
-            DefaultTreeModel modelo = (DefaultTreeModel)archivos.getModel();
-            
+            DefaultTreeModel modelo = (DefaultTreeModel) archivos.getModel();
+
         } else {
             boolean isUser = false;
             for (int i = 0; i < users.size(); i++) {
@@ -638,7 +803,8 @@ public class Miniwindows extends javax.swing.JFrame {
                 this.Desktop.pack();
                 this.Desktop.setLocationRelativeTo(this);
                 this.Desktop.setVisible(true);
-                path ="./Z\\Users\\" + logAs;
+                name.setText(logAs);
+                path = "./Z\\Users\\" + logAs;
                 music = new ArrayList();
                 listaMusic.setModel(new DefaultListModel());
             } else {
@@ -840,22 +1006,153 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void abrir_archivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_archivoActionPerformed
-        // TODO add your handling code here:
+        File fichero = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        editorpane.setText("");
+        String text = "";
+        try {
+            String pathto = "";
+            if (logAs.equals("Admin")) {
+                pathto = "./Z\\Users";
+            } else {
+                pathto = "./Z\\Users\\" + logAs;
+            }
+            JFileChooser chooser = new JFileChooser(pathto);
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt");
+            chooser.setFileFilter(filtro);
+            int seleccion = chooser.showOpenDialog(this);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                fichero = chooser.getSelectedFile();
+                fr = new FileReader(fichero);
+                br = new BufferedReader(fr);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    text += line + "\n";
+                }
+                editorpane.setText(text);
+            } else {
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+            }
+        }
     }//GEN-LAST:event_abrir_archivoActionPerformed
 
     private void boldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boldActionPerformed
-        String selected = editorpane.getSelectedText();
-        String complete = editorpane.getText();
-        if (bold.isSelected() && !selected.isEmpty() && !complete.isEmpty()) {
-            String tmp = complete.replace(selected,("<b>" + selected + "</b>"));
-            editorpane.setText(tmp);
-        } else if (!bold.isSelected()  && !selected.isEmpty()  && !complete.isEmpty()) {
-            String tmp = selected.replace("<b>","");
-            tmp = selected.replace("</b>","");
-            complete = complete.replace(selected, tmp);
-            editorpane.setText(complete);
+        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
+        Matcher matcher = pat.matcher(editorpane.getText());
+        if (matcher.find()) {
+            String selected = editorpane.getSelectedText();
+            String complete = editorpane.getText();
+            Pattern p = Pattern.compile("(?<=\\<strong\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/strong\\>)");
+            Matcher match = p.matcher(complete);
+            if (bold.isSelected() && selected != null && complete != null) {
+                String tmp = complete.replace(selected, ("<strong>" + selected + "</strong>"));
+                editorpane.setText(tmp);
+            } else if ((match.find() && !bold.isSelected())) {
+                String tmp = complete.replace(("<strong>" + selected + "</strong>"), selected);
+                editorpane.setText(tmp);
+            }
         }
     }//GEN-LAST:event_boldActionPerformed
+
+    private void italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_italicActionPerformed
+        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
+        Matcher matcher = pat.matcher(editorpane.getText());
+        if (matcher.find()) {
+            String selected = editorpane.getSelectedText();
+            String complete = editorpane.getText();
+            Pattern p = Pattern.compile("(?<=\\<em\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/em\\>)");
+            Matcher match = p.matcher(complete);
+            if (italic.isSelected() && selected != null && complete != null) {
+                String tmp = complete.replace(selected, ("<em>" + selected + "</em>"));
+                editorpane.setText(tmp);
+            } else if ((match.find() && !italic.isSelected())) {
+                String tmp = complete.replace(("<em>" + selected + "</em>"), selected);
+                editorpane.setText(tmp);
+            }
+        }
+    }//GEN-LAST:event_italicActionPerformed
+
+    private void underlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_underlineActionPerformed
+        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
+        Matcher matcher = pat.matcher(editorpane.getText());
+        if (matcher.find()) {
+            String selected = editorpane.getSelectedText();
+            String complete = editorpane.getText();
+            Pattern p = Pattern.compile("(?<=\\<u\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/u\\>)");
+            Matcher match = p.matcher(complete);
+            if (underline.isSelected() && selected != null && complete != null) {
+                String tmp = complete.replace(selected, ("<u>" + selected + "</u>"));
+                editorpane.setText(tmp);
+            } else if ((match.find() && !underline.isSelected())) {
+                System.out.println("THIS IS TEST");
+                String tmp = complete.replace(("<u>" + selected + "</u>"), selected);
+                editorpane.setText(tmp);
+            }
+        }
+    }//GEN-LAST:event_underlineActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        String pathto = "";
+        if (logAs.equals("Admin")) {
+            pathto = "./Z\\Users";
+        } else {
+            pathto = "./Z\\Users\\" + logAs;
+        }
+        JFileChooser chooser = new JFileChooser(pathto);
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt");
+        chooser.setFileFilter(filtro);
+        int seleccion = chooser.showSaveDialog(Editor);
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                File fichero = new File(chooser.getSelectedFile().getAbsolutePath()+ ".txt");
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                String text = editorpane.getText();
+                bw.write(text);
+                bw.flush();
+                JOptionPane.showMessageDialog(Editor, "Archivo guardado exitosamente.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bw.close();
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void cambiarcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cambiarcActionPerformed
+
+    private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
+        this.agregarUs.pack();
+        this.agregarUs.setLocationRelativeTo(this.Desktop);
+        this.agregarUs.setVisible(true);
+    }//GEN-LAST:event_addUserActionPerformed
+
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agregarActionPerformed
+
+    private void apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_apagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -899,13 +1196,21 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JDialog Desktop;
     private javax.swing.JDialog Editor;
     private javax.swing.JDialog MP3Player;
+    private javax.swing.JDialog Mensajes;
+    private javax.swing.JDialog Visor;
     private javax.swing.JMenuItem abrir_archivo;
     private javax.swing.JButton addMusic;
+    private javax.swing.JMenuItem addUser;
+    private javax.swing.JButton agregar;
+    private javax.swing.JDialog agregarUs;
+    private javax.swing.JMenuItem apagar;
     private javax.swing.JTree archivos;
     private javax.swing.JButton backsong;
     private javax.swing.JMenuBar barEditor;
     private javax.swing.JMenuBar barPrincipal;
     private javax.swing.JToggleButton bold;
+    private javax.swing.JMenuItem cambiarc;
+    private javax.swing.JMenuItem change;
     private javax.swing.JTextPane consola;
     private javax.swing.JButton delsong;
     private com.bolivia.panel.JCPanel deskpanel;
@@ -928,6 +1233,8 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -937,7 +1244,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JTable jTable1;
@@ -949,9 +1255,12 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JMenu name;
     private javax.swing.JButton opencmd;
     private javax.swing.JButton openplayer;
+    private javax.swing.JPasswordField pf_addpass;
     private javax.swing.JPasswordField pf_password;
     private javax.swing.JButton playpause;
+    private com.bolivia.panel.JCPanel pn_agregar;
     private com.bolivia.panel.JCPanel pn_login;
+    private javax.swing.JTextField tf_adduser;
     private javax.swing.JTextField tf_dir;
     private javax.swing.JTextField tf_user;
     private javax.swing.JToggleButton underline;
