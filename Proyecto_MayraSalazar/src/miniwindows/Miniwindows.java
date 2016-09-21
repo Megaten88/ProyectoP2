@@ -28,6 +28,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -482,6 +483,8 @@ public class Miniwindows extends javax.swing.JFrame {
             System.out.println(path);
             music = new ArrayList();
             listaMusic.setModel(new DefaultListModel());
+            DefaultTreeModel modelo = (DefaultTreeModel)archivos.getModel();
+            
         } else {
             boolean isUser = false;
             for (int i = 0; i < users.size(); i++) {
