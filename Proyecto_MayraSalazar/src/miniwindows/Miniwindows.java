@@ -28,7 +28,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
@@ -65,9 +65,11 @@ public class Miniwindows extends javax.swing.JFrame {
         deskpanel = new com.bolivia.panel.JCPanel();
         opencmd = new javax.swing.JButton();
         openplayer = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jButton5 = new javax.swing.JButton();
+        barPrincipal = new javax.swing.JMenuBar();
+        logOut = new javax.swing.JMenu();
+        name = new javax.swing.JMenu();
+        hora = new javax.swing.JMenu();
         Consola = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         consola = new javax.swing.JTextPane();
@@ -95,6 +97,25 @@ public class Miniwindows extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Editor = new javax.swing.JDialog();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        editorpane = new javax.swing.JTextPane();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        bold = new javax.swing.JToggleButton();
+        italic = new javax.swing.JToggleButton();
+        underline = new javax.swing.JToggleButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        barEditor = new javax.swing.JMenuBar();
+        menu_archivos = new javax.swing.JMenu();
+        abrir_archivo = new javax.swing.JMenuItem();
+        guardar = new javax.swing.JMenuItem();
+        guardarC = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
         pn_login = new com.bolivia.panel.JCPanel();
         jLabel1 = new javax.swing.JLabel();
         tf_user = new javax.swing.JTextField();
@@ -117,14 +138,21 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         });
 
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout deskpanelLayout = new javax.swing.GroupLayout(deskpanel);
         deskpanel.setLayout(deskpanelLayout);
         deskpanelLayout.setHorizontalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deskpanelLayout.createSequentialGroup()
-                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(opencmd, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(opencmd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(openplayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 637, Short.MAX_VALUE))
         );
         deskpanelLayout.setVerticalGroup(
@@ -134,19 +162,24 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addComponent(opencmd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        jMenuBar1.setBackground(new java.awt.Color(0, 0, 0));
-        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
+        barPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        barPrincipal.setForeground(new java.awt.Color(255, 255, 255));
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        logOut.setText("File");
+        barPrincipal.add(logOut);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        name.setText("Edit");
+        barPrincipal.add(name);
 
-        Desktop.setJMenuBar(jMenuBar1);
+        hora.setText("jMenu1");
+        barPrincipal.add(hora);
+
+        Desktop.setJMenuBar(barPrincipal);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop.getContentPane());
         Desktop.getContentPane().setLayout(DesktopLayout);
@@ -385,6 +418,113 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        editorpane.setContentType("text/html"); // NOI18N
+        editorpane.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r\n    <p>\r\n    </p>\r\n  </body>\r\n</html>\r\n");
+        jScrollPane6.setViewportView(editorpane);
+
+        jToolBar1.setRollover(true);
+
+        jButton6.setText("Copiar");
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton6);
+
+        jButton7.setText("Cortar");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton7);
+
+        jButton8.setText("Pegar");
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton8);
+        jToolBar1.add(jSeparator4);
+
+        bold.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        bold.setText("B");
+        bold.setFocusable(false);
+        bold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bold.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bold.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boldActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(bold);
+
+        italic.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        italic.setText("I");
+        italic.setFocusable(false);
+        italic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        italic.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(italic);
+
+        underline.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        underline.setText("U");
+        underline.setFocusable(false);
+        underline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(underline);
+        jToolBar1.add(jSeparator5);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+
+        menu_archivos.setText("Archivo");
+
+        abrir_archivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        abrir_archivo.setText("Abrir");
+        abrir_archivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrir_archivoActionPerformed(evt);
+            }
+        });
+        menu_archivos.add(abrir_archivo);
+
+        guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        guardar.setText("Guardar");
+        menu_archivos.add(guardar);
+
+        guardarC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        guardarC.setText("Guardar Como");
+        menu_archivos.add(guardarC);
+
+        barEditor.add(menu_archivos);
+
+        Editor.setJMenuBar(barEditor);
+
+        javax.swing.GroupLayout EditorLayout = new javax.swing.GroupLayout(Editor.getContentPane());
+        Editor.getContentPane().setLayout(EditorLayout);
+        EditorLayout.setHorizontalGroup(
+            EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        EditorLayout.setVerticalGroup(
+            EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -479,7 +619,7 @@ public class Miniwindows extends javax.swing.JFrame {
             this.Desktop.pack();
             this.Desktop.setLocationRelativeTo(this);
             this.Desktop.setVisible(true);
-            path += "\\" + logAs;
+            path ="./Z\\Users\\" + logAs;
             System.out.println(path);
             music = new ArrayList();
             listaMusic.setModel(new DefaultListModel());
@@ -489,6 +629,7 @@ public class Miniwindows extends javax.swing.JFrame {
             boolean isUser = false;
             for (int i = 0; i < users.size(); i++) {
                 if (tf_user.getText().equals(users.get(i).getUser()) && pf_password.getText().equals(users.get(i).getPassword())) {
+                    isUser = true;
                 }
             }
             if (isUser) {
@@ -497,7 +638,7 @@ public class Miniwindows extends javax.swing.JFrame {
                 this.Desktop.pack();
                 this.Desktop.setLocationRelativeTo(this);
                 this.Desktop.setVisible(true);
-                path += "\\" + logAs;
+                path ="./Z\\Users\\" + logAs;
                 music = new ArrayList();
                 listaMusic.setModel(new DefaultListModel());
             } else {
@@ -516,77 +657,81 @@ public class Miniwindows extends javax.swing.JFrame {
     private void consolaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_consolaKeyPressed
         this.consola.setCaretColor(Color.white);
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String text = this.consola.getText();
-            String textoPane = this.consola.getText();
-            String[] lines = text.split("\n");
-            String lastline = lines[lines.length - 1];
-            Scanner read = new Scanner(lastline);
-            read.useDelimiter(">");
-            String[] containers = new String[1];
-            int index = 0;
-            while (read.hasNext()) {
-                containers[index] = read.next();
-                index++;
-            }
-            if (containers[0] != null) {
-                String dir = containers[0];
-                if (dir.contains("mkdir ")) {
-                    dir = dir.replace("mkdir ", "").replace(" ", "");
-                    if (createDirectory(path + "\\" + dir)) {
-                        textoPane += "\n El directorio ya existe\n";
-                    }
-                } else if (dir.contains("rm ")) {
-                    dir = dir.replace("rm ", "");
-                    borrar(path + "\\" + dir);
-                } else if (dir.contains("cd ") && !dir.contains("..")) {
-                    dir = dir.replace("cd ", "");
-                    if ((new File(path += "\\" + dir).exists())) {
-                        System.out.println("exists");
-                    } else {
-                        textoPane += "\n El directorio no existe";
-                        path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
-                    }
-                } else if (dir.contains("cd ..")) {
-                    if (logAs.equals("Admin") && !path.equals("./Z")) {
-                        path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
-                    } else if (!path.equals("./Z\\Users\\" + logAs)) {
-
-                    }
-                } else if (dir.contains("time")) {
-                    DateFormat f = new SimpleDateFormat("HH:mm:ss");
-                    Date date = new Date();
-                    textoPane += "\n La hora actual es: " + f.format(date);
-                } else if (dir.contains("date")) {
-                    Date date = new Date();
-                    DateFormat f = new SimpleDateFormat("dd/MMMM/YYYY");
-                    textoPane += "\n La fecha actual es: " + f.format(date);
-                } else if (dir.contains("help")) {
-                    textoPane += "\n-----Help------"
-                            + "\n mkdir ------- Crea un directorio"
-                            + "\n rm ---------- Elimina un archivo o directorio"
-                            + "\n cd ---------- Commando para moverse entre carpetas"
-                            + "\n time -------- Da la hora actual"
-                            + "\n date -------- Da la fecha actual"
-                            + "\n dir --------- Lista todo en la carpeta actual";
-                } else if (dir.contains("dir") && !dir.contains("mkdir")) {
-                    System.out.println(path);
-                    File direc = new File(path);
-                    File[] files = direc.listFiles();
-                    for (File file : files) {
-                        if (file.isDirectory()) {
-                            textoPane += "\n Directorio: " + file.getName();
-                        }
-                        if (file.isFile()) {
-                            textoPane += "\nArchivo: " + file.getName();
-                        }
-                    }
-                } else {
-                    textoPane += "\nIngrese un comando válido, escriba help para ver comandos\n";
+            try {
+                String text = this.consola.getText();
+                String textoPane = this.consola.getText();
+                String[] lines = text.split("\n");
+                String lastline = lines[lines.length - 1];
+                Scanner read = new Scanner(lastline);
+                read.useDelimiter(">");
+                String[] containers = new String[1];
+                int index = 0;
+                while (read.hasNext()) {
+                    containers[index] = read.next();
+                    index++;
                 }
-                index = 0;
+                if (containers[0] != null) {
+                    String dir = containers[0];
+                    if (dir.contains("mkdir ")) {
+                        dir = dir.replace("mkdir ", "").replace(" ", "");
+                        if (createDirectory(path + "\\" + dir)) {
+                            textoPane += "\n El directorio ya existe\n";
+                        }
+                    } else if (dir.contains("rm ")) {
+                        dir = dir.replace("rm ", "");
+                        borrar(path + "\\" + dir);
+                    } else if (dir.contains("cd ") && !dir.contains("..")) {
+                        dir = dir.replace("cd ", "");
+                        if ((new File(path += "\\" + dir).exists())) {
+                            System.out.println("exists");
+                        } else {
+                            textoPane += "\n El directorio no existe";
+                            path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                        }
+                    } else if (dir.contains("cd ..")) {
+                        if (logAs.equals("Admin") && !path.equals("./Z")) {
+                            path = path.replace((path.substring(path.lastIndexOf("\\"), path.length())), "");
+                        } else if (!path.equals("./Z\\Users\\" + logAs)) {
+
+                        }
+                    } else if (dir.contains("time")) {
+                        DateFormat f = new SimpleDateFormat("HH:mm:ss");
+                        Date date = new Date();
+                        textoPane += "\n La hora actual es: " + f.format(date);
+                    } else if (dir.contains("date")) {
+                        Date date = new Date();
+                        DateFormat f = new SimpleDateFormat("dd/MMMM/YYYY");
+                        textoPane += "\n La fecha actual es: " + f.format(date);
+                    } else if (dir.contains("help")) {
+                        textoPane += "\n-----Help------"
+                                + "\n mkdir ------- Crea un directorio"
+                                + "\n rm ---------- Elimina un archivo o directorio"
+                                + "\n cd ---------- Commando para moverse entre carpetas"
+                                + "\n time -------- Da la hora actual"
+                                + "\n date -------- Da la fecha actual"
+                                + "\n dir --------- Lista todo en la carpeta actual";
+                    } else if (dir.contains("dir") && !dir.contains("mkdir")) {
+                        System.out.println(path);
+                        File direc = new File(path);
+                        File[] files = direc.listFiles();
+                        for (File file : files) {
+                            if (file.isDirectory()) {
+                                textoPane += "\n Directorio: " + file.getName();
+                            }
+                            if (file.isFile()) {
+                                textoPane += "\nArchivo: " + file.getName();
+                            }
+                        }
+                    } else {
+                        textoPane += "\nIngrese un comando válido, escriba help para ver comandos\n";
+                    }
+                    index = 0;
+                }
+                textoPane += "\n" + path + ">";
+                consola.setText(textoPane);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            textoPane += "\n" + path + ">";
-            consola.setText(textoPane);
         }
     }//GEN-LAST:event_consolaKeyPressed
 
@@ -688,6 +833,30 @@ public class Miniwindows extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_backsongActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.Editor.pack();
+        this.Editor.setLocationRelativeTo(this.Desktop);
+        this.Editor.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void abrir_archivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_archivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_abrir_archivoActionPerformed
+
+    private void boldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boldActionPerformed
+        String selected = editorpane.getSelectedText();
+        String complete = editorpane.getText();
+        if (bold.isSelected() && !selected.isEmpty() && !complete.isEmpty()) {
+            String tmp = complete.replace(selected,("<b>" + selected + "</b>"));
+            editorpane.setText(tmp);
+        } else if (!bold.isSelected()  && !selected.isEmpty()  && !complete.isEmpty()) {
+            String tmp = selected.replace("<b>","");
+            tmp = selected.replace("</b>","");
+            complete = complete.replace(selected, tmp);
+            editorpane.setText(complete);
+        }
+    }//GEN-LAST:event_boldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -728,36 +897,56 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JDialog Calendar;
     private javax.swing.JDialog Consola;
     private javax.swing.JDialog Desktop;
+    private javax.swing.JDialog Editor;
     private javax.swing.JDialog MP3Player;
+    private javax.swing.JMenuItem abrir_archivo;
     private javax.swing.JButton addMusic;
     private javax.swing.JTree archivos;
     private javax.swing.JButton backsong;
+    private javax.swing.JMenuBar barEditor;
+    private javax.swing.JMenuBar barPrincipal;
+    private javax.swing.JToggleButton bold;
     private javax.swing.JTextPane consola;
     private javax.swing.JButton delsong;
     private com.bolivia.panel.JCPanel deskpanel;
+    private javax.swing.JTextPane editorpane;
     private javax.swing.JButton forwardsong;
+    private javax.swing.JMenuItem guardar;
+    private javax.swing.JMenuItem guardarC;
+    private javax.swing.JMenu hora;
+    private javax.swing.JToggleButton italic;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
+    private javax.swing.JMenu logOut;
+    private javax.swing.JMenu menu_archivos;
+    private javax.swing.JMenu name;
     private javax.swing.JButton opencmd;
     private javax.swing.JButton openplayer;
     private javax.swing.JPasswordField pf_password;
@@ -765,6 +954,7 @@ public class Miniwindows extends javax.swing.JFrame {
     private com.bolivia.panel.JCPanel pn_login;
     private javax.swing.JTextField tf_dir;
     private javax.swing.JTextField tf_user;
+    private javax.swing.JToggleButton underline;
     // End of variables declaration//GEN-END:variables
     String logAs;
     String admin = "Admin";
@@ -784,9 +974,9 @@ public class Miniwindows extends javax.swing.JFrame {
 
     }
 
-    public void borrar(String path) {
+    public void borrar(String path) throws IOException {
         if (new File(path).isDirectory()) {
-
+            FileUtils.deleteDirectory(new File(path));
         } else {
             new File(path).delete();
         }
@@ -803,6 +993,7 @@ public class Miniwindows extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo) {
         try {
             ArrayList<File> a = new ArrayList();
