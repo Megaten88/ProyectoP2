@@ -80,6 +80,7 @@ public class Miniwindows extends javax.swing.JFrame {
         this.deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./flor.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.Desktop.setTitle("Welcome to MiniWindows!");
         this.MP3Player.setTitle("MiniWindowsPlayer");
+        this.Editor.setTitle("Miniwindows Editor");
         HiloHora hour = new HiloHora(hora);
         try {
             hour.start();
@@ -146,16 +147,25 @@ public class Miniwindows extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tpText = new javax.swing.JTextPane();
-        btnItalics = new javax.swing.JButton();
-        btnBold = new javax.swing.JButton();
-        comboxSize = new javax.swing.JComboBox<>();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JToolBar.Separator();
         comboxFonts = new javax.swing.JComboBox<>();
-        btnColor = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JToolBar.Separator();
+        comboxSize = new javax.swing.JComboBox<>();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnBold = new javax.swing.JButton();
+        btnItalics = new javax.swing.JButton();
         btnUnderline = new javax.swing.JButton();
-        btnRight = new javax.swing.JButton();
-        btnJustified = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
+        btnColor = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
         btnLeft = new javax.swing.JButton();
         btnCenter = new javax.swing.JButton();
+        btnRight = new javax.swing.JButton();
+        btnJustified = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mibtnSave = new javax.swing.JMenuItem();
@@ -517,19 +527,37 @@ public class Miniwindows extends javax.swing.JFrame {
         tpText.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane5.setViewportView(tpText);
 
-        btnItalics.setText("I");
-        btnItalics.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnItalicsMouseClicked(evt);
-            }
-        });
+        jToolBar1.setRollover(true);
 
-        btnBold.setText("B");
-        btnBold.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBoldMouseClicked(evt);
+        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton6.setText("Copiar");
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton6);
+
+        jButton7.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton7.setText("Cortar");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton7);
+
+        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jButton8.setText("Pegar");
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton8);
+        jToolBar1.add(jSeparator7);
+
+        comboxFonts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxFontsActionPerformed(evt);
             }
         });
+        jToolBar1.add(comboxFonts);
+        jToolBar1.add(jSeparator6);
 
         comboxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
         comboxSize.addActionListener(new java.awt.event.ActionListener() {
@@ -537,109 +565,101 @@ public class Miniwindows extends javax.swing.JFrame {
                 comboxSizeActionPerformed(evt);
             }
         });
+        jToolBar1.add(comboxSize);
+        jToolBar1.add(jSeparator3);
 
-        comboxFonts.addActionListener(new java.awt.event.ActionListener() {
+        btnBold.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnBold.setText("B");
+        btnBold.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboxFontsActionPerformed(evt);
+                btnBoldActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnBold);
 
+        btnItalics.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        btnItalics.setText("I");
+        btnItalics.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnItalicsActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnItalics);
+
+        btnUnderline.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        btnUnderline.setText("U");
+        btnUnderline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnderlineActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUnderline);
+        jToolBar1.add(jSeparator4);
+
+        btnColor.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         btnColor.setText("Color");
         btnColor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnColorMouseClicked(evt);
             }
         });
+        jToolBar1.add(btnColor);
+        jToolBar1.add(jSeparator5);
 
-        btnUnderline.setText("U");
-        btnUnderline.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUnderlineMouseClicked(evt);
-            }
-        });
-
-        btnRight.setText("R");
-        btnRight.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRightMouseClicked(evt);
-            }
-        });
-
-        btnJustified.setText("J");
-        btnJustified.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnJustifiedMouseClicked(evt);
-            }
-        });
-
-        btnLeft.setText("L");
+        btnLeft.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/left-alignment.png"))); // NOI18N
         btnLeft.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLeftMouseClicked(evt);
             }
         });
+        jToolBar1.add(btnLeft);
 
-        btnCenter.setText("C");
+        btnCenter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/center-alignment.png"))); // NOI18N
         btnCenter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCenterMouseClicked(evt);
             }
         });
+        btnCenter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCenterActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnCenter);
+
+        btnRight.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/right-alignment.png"))); // NOI18N
+        btnRight.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRightMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(btnRight);
+
+        btnJustified.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/justify.png"))); // NOI18N
+        btnJustified.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnJustifiedMouseClicked(evt);
+            }
+        });
+        jToolBar1.add(btnJustified);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 816, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(comboxFonts, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(comboxSize, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnBold, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnItalics, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(5, 5, 5)
-                            .addComponent(btnUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnColor, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnRight, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnJustified, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap()))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(comboxFonts)
-                        .addComponent(btnUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnItalics, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                        .addComponent(btnColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnJustified, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboxSize)
-                        .addComponent(btnBold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(34, 34, 34)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(28, Short.MAX_VALUE)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
         jMenu1.setText("Archivo");
@@ -677,13 +697,11 @@ public class Miniwindows extends javax.swing.JFrame {
         Editor.getContentPane().setLayout(EditorLayout);
         EditorLayout.setHorizontalGroup(
             EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         EditorLayout.setVerticalGroup(
             EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditorLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout VisorLayout = new javax.swing.GroupLayout(Visor.getContentPane());
@@ -1125,52 +1143,6 @@ public class Miniwindows extends javax.swing.JFrame {
         this.Archivos.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void btnItalicsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnItalicsMouseClicked
-        if (italics) {
-            italics = false;
-        } else {
-            italics = true;
-        }
-        doc = this.tpText.getStyledDocument();
-        int j = 0, posicion = 0;
-        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
-            posicion = this.tpText.getSelectionStart() + j;
-            Element element = doc.getCharacterElement(posicion);
-            AttributeSet as = element.getAttributes();
-            colour = StyleConstants.getForeground(as);
-            fontLetter = StyleConstants.getFontFamily(as);
-            bold = StyleConstants.isBold(as);
-            underline = StyleConstants.isUnderline(as);
-            size = StyleConstants.getFontSize(as);
-            //background = StyleConstants.getBackground(as);
-            Edit(posicion);
-            j++;
-        }
-    }//GEN-LAST:event_btnItalicsMouseClicked
-
-    private void btnBoldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBoldMouseClicked
-        if (bold) {
-            bold = false;
-        } else {
-            bold = true;
-        }
-        doc = this.tpText.getStyledDocument();
-        int j = 0, posicion = 0;
-        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
-            posicion = this.tpText.getSelectionStart() + j;
-            Element element = doc.getCharacterElement(posicion);
-            AttributeSet as = element.getAttributes();
-            colour = StyleConstants.getForeground(as);
-            fontLetter = StyleConstants.getFontFamily(as);
-            italics = StyleConstants.isItalic(as);
-            underline = StyleConstants.isUnderline(as);
-            size = StyleConstants.getFontSize(as);
-            //background = StyleConstants.getBackground(as);
-            Edit(posicion);
-            j++;
-        }
-    }//GEN-LAST:event_btnBoldMouseClicked
-
     private void comboxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxSizeActionPerformed
         String Size;
         Size = (String) this.comboxSize.getSelectedItem();
@@ -1230,29 +1202,6 @@ public class Miniwindows extends javax.swing.JFrame {
             j++;
         }
     }//GEN-LAST:event_btnColorMouseClicked
-
-    private void btnUnderlineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUnderlineMouseClicked
-        if (underline) {
-            underline = false;
-        } else {
-            underline = true;
-        }
-        doc = this.tpText.getStyledDocument();
-        int j = 0, posicion = 0;
-        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
-            posicion = this.tpText.getSelectionStart() + j;
-            Element element = doc.getCharacterElement(posicion);
-            AttributeSet as = element.getAttributes();
-            colour = StyleConstants.getForeground(as);
-            fontLetter = StyleConstants.getFontFamily(as);
-            bold = StyleConstants.isBold(as);
-            italics = StyleConstants.isItalic(as);
-            size = StyleConstants.getFontSize(as);
-            //background = StyleConstants.getBackground(as);
-            Edit(posicion);
-            j++;
-        }
-    }//GEN-LAST:event_btnUnderlineMouseClicked
 
     private void btnRightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRightMouseClicked
         if (right) {
@@ -1343,6 +1292,79 @@ public class Miniwindows extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mibtnLoadActionPerformed
 
+    private void btnBoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBoldActionPerformed
+        if (bold) {
+            bold = false;
+        } else {
+            bold = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            italics = StyleConstants.isItalic(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnBoldActionPerformed
+
+    private void btnItalicsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItalicsActionPerformed
+        if (italics) {
+            italics = false;
+        } else {
+            italics = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnItalicsActionPerformed
+
+    private void btnUnderlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnderlineActionPerformed
+         if (underline) {
+            underline = false;
+        } else {
+            underline = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            italics = StyleConstants.isItalic(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnUnderlineActionPerformed
+
+    private void btnCenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCenterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCenterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1417,6 +1439,9 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
@@ -1436,7 +1461,13 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar.Separator jSeparator6;
+    private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JTable jTable1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
     private javax.swing.JMenu logOut;
