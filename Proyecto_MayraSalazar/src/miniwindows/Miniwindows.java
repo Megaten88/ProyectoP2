@@ -6,6 +6,9 @@
 package miniwindows;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -14,10 +17,12 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,12 +33,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileView;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.apache.commons.io.FileUtils;
@@ -68,6 +86,10 @@ public class Miniwindows extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+                String[] font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        fonts = new DefaultComboBoxModel(font);
+        this.comboxFonts.setModel(fonts);
+        this.jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     /**
@@ -84,6 +106,7 @@ public class Miniwindows extends javax.swing.JFrame {
         opencmd = new javax.swing.JButton();
         openplayer = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         barPrincipal = new javax.swing.JMenuBar();
         hora = new javax.swing.JMenu();
         name = new javax.swing.JMenu();
@@ -121,22 +144,23 @@ public class Miniwindows extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         Editor = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        editorpane = new javax.swing.JTextPane();
-        jToolBar1 = new javax.swing.JToolBar();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jSeparator4 = new javax.swing.JToolBar.Separator();
-        bold = new javax.swing.JToggleButton();
-        italic = new javax.swing.JToggleButton();
-        underline = new javax.swing.JToggleButton();
-        jSeparator5 = new javax.swing.JToolBar.Separator();
-        barEditor = new javax.swing.JMenuBar();
-        menu_archivos = new javax.swing.JMenu();
-        abrir_archivo = new javax.swing.JMenuItem();
-        guardar = new javax.swing.JMenuItem();
-        guardarC = new javax.swing.JMenuItem();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tpText = new javax.swing.JTextPane();
+        btnItalics = new javax.swing.JButton();
+        btnBold = new javax.swing.JButton();
+        comboxSize = new javax.swing.JComboBox<>();
+        comboxFonts = new javax.swing.JComboBox<>();
+        btnColor = new javax.swing.JButton();
+        btnUnderline = new javax.swing.JButton();
+        btnRight = new javax.swing.JButton();
+        btnJustified = new javax.swing.JButton();
+        btnLeft = new javax.swing.JButton();
+        btnCenter = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mibtnSave = new javax.swing.JMenuItem();
+        mibtnSaveAs = new javax.swing.JMenuItem();
+        mibtnLoad = new javax.swing.JMenuItem();
         Visor = new javax.swing.JDialog();
         Mensajes = new javax.swing.JDialog();
         agregarUs = new javax.swing.JDialog();
@@ -174,6 +198,12 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         });
 
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout deskpanelLayout = new javax.swing.GroupLayout(deskpanel);
         deskpanel.setLayout(deskpanelLayout);
         deskpanelLayout.setHorizontalGroup(
@@ -182,7 +212,8 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(opencmd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(openplayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(openplayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 637, Short.MAX_VALUE))
         );
         deskpanelLayout.setVerticalGroup(
@@ -194,7 +225,9 @@ public class Miniwindows extends javax.swing.JFrame {
                 .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         barPrincipal.setBackground(new java.awt.Color(0, 0, 0));
@@ -430,7 +463,7 @@ public class Miniwindows extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Z");
         archivos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane3.setViewportView(archivos);
 
@@ -479,114 +512,166 @@ public class Miniwindows extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(8, 163, 179));
 
-        editorpane.setContentType("text/html"); // NOI18N
-        editorpane.setText("<html>\r\n  <head>\r\n\r\n  </head>\r\n  <body>\r\n    <p>\r\n    </p>\r\n  </body>\r\n</html>\r\n");
-        jScrollPane6.setViewportView(editorpane);
+        tpText.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        tpText.setAutoscrolls(false);
+        tpText.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane5.setViewportView(tpText);
 
-        jToolBar1.setRollover(true);
-
-        jButton6.setText("Copiar");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
-
-        jButton7.setText("Cortar");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
-
-        jButton8.setText("Pegar");
-        jButton8.setFocusable(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton8);
-        jToolBar1.add(jSeparator4);
-
-        bold.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        bold.setText("B");
-        bold.setFocusable(false);
-        bold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        bold.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        bold.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boldActionPerformed(evt);
+        btnItalics.setText("I");
+        btnItalics.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnItalicsMouseClicked(evt);
             }
         });
-        jToolBar1.add(bold);
 
-        italic.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
-        italic.setText("I");
-        italic.setFocusable(false);
-        italic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        italic.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        italic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                italicActionPerformed(evt);
+        btnBold.setText("B");
+        btnBold.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBoldMouseClicked(evt);
             }
         });
-        jToolBar1.add(italic);
 
-        underline.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        underline.setText("U");
-        underline.setFocusable(false);
-        underline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        underline.addActionListener(new java.awt.event.ActionListener() {
+        comboxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72" }));
+        comboxSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                underlineActionPerformed(evt);
+                comboxSizeActionPerformed(evt);
             }
         });
-        jToolBar1.add(underline);
-        jToolBar1.add(jSeparator5);
+
+        comboxFonts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboxFontsActionPerformed(evt);
+            }
+        });
+
+        btnColor.setText("Color");
+        btnColor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnColorMouseClicked(evt);
+            }
+        });
+
+        btnUnderline.setText("U");
+        btnUnderline.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUnderlineMouseClicked(evt);
+            }
+        });
+
+        btnRight.setText("R");
+        btnRight.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRightMouseClicked(evt);
+            }
+        });
+
+        btnJustified.setText("J");
+        btnJustified.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnJustifiedMouseClicked(evt);
+            }
+        });
+
+        btnLeft.setText("L");
+        btnLeft.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLeftMouseClicked(evt);
+            }
+        });
+
+        btnCenter.setText("C");
+        btnCenter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCenterMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6)
-                .addContainerGap())
+            .addGap(0, 816, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(comboxFonts, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboxSize, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnBold, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnItalics, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(5, 5, 5)
+                            .addComponent(btnUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnColor, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnRight, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnJustified, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+            .addGap(0, 416, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(comboxFonts)
+                        .addComponent(btnUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnItalics, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                        .addComponent(btnColor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCenter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnJustified, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboxSize)
+                        .addComponent(btnBold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(34, 34, 34)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(28, Short.MAX_VALUE)))
         );
 
-        menu_archivos.setText("Archivo");
+        jMenu1.setText("Archivo");
 
-        abrir_archivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        abrir_archivo.setText("Abrir");
-        abrir_archivo.addActionListener(new java.awt.event.ActionListener() {
+        mibtnSave.setText("Guardar");
+        mibtnSave.setEnabled(false);
+        mibtnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrir_archivoActionPerformed(evt);
+                mibtnSaveActionPerformed(evt);
             }
         });
-        menu_archivos.add(abrir_archivo);
+        jMenu1.add(mibtnSave);
 
-        guardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        guardar.setText("Guardar");
-        guardar.addActionListener(new java.awt.event.ActionListener() {
+        mibtnSaveAs.setText("Guardar Como");
+        mibtnSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarActionPerformed(evt);
+                mibtnSaveAsActionPerformed(evt);
             }
         });
-        menu_archivos.add(guardar);
+        jMenu1.add(mibtnSaveAs);
 
-        guardarC.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        guardarC.setText("Guardar Como");
-        menu_archivos.add(guardarC);
+        mibtnLoad.setText("Cargar");
+        mibtnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mibtnLoadActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mibtnLoad);
 
-        barEditor.add(menu_archivos);
+        jMenuBar1.add(jMenu1);
 
-        Editor.setJMenuBar(barEditor);
+        Editor.setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout EditorLayout = new javax.swing.GroupLayout(Editor.getContentPane());
         Editor.getContentPane().setLayout(EditorLayout);
@@ -596,7 +681,9 @@ public class Miniwindows extends javax.swing.JFrame {
         );
         EditorLayout.setVerticalGroup(
             EditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditorLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout VisorLayout = new javax.swing.GroupLayout(Visor.getContentPane());
@@ -789,6 +876,10 @@ public class Miniwindows extends javax.swing.JFrame {
             music = new ArrayList();
             listaMusic.setModel(new DefaultListModel());
             DefaultTreeModel modelo = (DefaultTreeModel) archivos.getModel();
+            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
+            listar_todo(new File(path), raiz);
+            modelo.reload();
+            archivos.setModel(modelo);
 
         } else {
             boolean isUser = false;
@@ -807,6 +898,11 @@ public class Miniwindows extends javax.swing.JFrame {
                 path = "./Z\\Users\\" + logAs;
                 music = new ArrayList();
                 listaMusic.setModel(new DefaultListModel());
+                DefaultTreeModel modelo = (DefaultTreeModel) archivos.getModel();
+                DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
+                raiz.removeAllChildren();
+                listar_todo(new File(path), raiz);
+                archivos.setModel(modelo);
             } else {
                 JOptionPane.showMessageDialog(this, "No existe el usuario.");
             }
@@ -1005,137 +1101,6 @@ public class Miniwindows extends javax.swing.JFrame {
         this.Editor.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void abrir_archivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_archivoActionPerformed
-        File fichero = null;
-        FileReader fr = null;
-        BufferedReader br = null;
-        editorpane.setText("");
-        String text = "";
-        try {
-            String pathto = "";
-            if (logAs.equals("Admin")) {
-                pathto = "./Z\\Users";
-            } else {
-                pathto = "./Z\\Users\\" + logAs;
-            }
-            JFileChooser chooser = new JFileChooser(pathto);
-            FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt");
-            chooser.setFileFilter(filtro);
-            int seleccion = chooser.showOpenDialog(this);
-            if (seleccion == JFileChooser.APPROVE_OPTION) {
-                fichero = chooser.getSelectedFile();
-                fr = new FileReader(fichero);
-                br = new BufferedReader(fr);
-                String line;
-                while ((line = br.readLine()) != null) {
-                    text += line + "\n";
-                }
-                editorpane.setText(text);
-            } else {
-
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                fr.close();
-            } catch (IOException e) {
-            }
-        }
-    }//GEN-LAST:event_abrir_archivoActionPerformed
-
-    private void boldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boldActionPerformed
-        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
-        Matcher matcher = pat.matcher(editorpane.getText());
-        if (matcher.find()) {
-            String selected = editorpane.getSelectedText();
-            String complete = editorpane.getText();
-            Pattern p = Pattern.compile("(?<=\\<strong\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/strong\\>)");
-            Matcher match = p.matcher(complete);
-            if (bold.isSelected() && selected != null && complete != null) {
-                String tmp = complete.replace(selected, ("<strong>" + selected + "</strong>"));
-                editorpane.setText(tmp);
-            } else if ((match.find() && !bold.isSelected())) {
-                String tmp = complete.replace(("<strong>" + selected + "</strong>"), selected);
-                editorpane.setText(tmp);
-            }
-        }
-    }//GEN-LAST:event_boldActionPerformed
-
-    private void italicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_italicActionPerformed
-        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
-        Matcher matcher = pat.matcher(editorpane.getText());
-        if (matcher.find()) {
-            String selected = editorpane.getSelectedText();
-            String complete = editorpane.getText();
-            Pattern p = Pattern.compile("(?<=\\<em\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/em\\>)");
-            Matcher match = p.matcher(complete);
-            if (italic.isSelected() && selected != null && complete != null) {
-                String tmp = complete.replace(selected, ("<em>" + selected + "</em>"));
-                editorpane.setText(tmp);
-            } else if ((match.find() && !italic.isSelected())) {
-                String tmp = complete.replace(("<em>" + selected + "</em>"), selected);
-                editorpane.setText(tmp);
-            }
-        }
-    }//GEN-LAST:event_italicActionPerformed
-
-    private void underlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_underlineActionPerformed
-        Pattern pat = Pattern.compile("(?<=\\<p\\>)(\\s*.*\\s*)(?=\\<\\/p\\>)");
-        Matcher matcher = pat.matcher(editorpane.getText());
-        if (matcher.find()) {
-            String selected = editorpane.getSelectedText();
-            String complete = editorpane.getText();
-            Pattern p = Pattern.compile("(?<=\\<u\\>)(\\s*" + selected + "*\\s*)(?=\\<\\/u\\>)");
-            Matcher match = p.matcher(complete);
-            if (underline.isSelected() && selected != null && complete != null) {
-                String tmp = complete.replace(selected, ("<u>" + selected + "</u>"));
-                editorpane.setText(tmp);
-            } else if ((match.find() && !underline.isSelected())) {
-                System.out.println("THIS IS TEST");
-                String tmp = complete.replace(("<u>" + selected + "</u>"), selected);
-                editorpane.setText(tmp);
-            }
-        }
-    }//GEN-LAST:event_underlineActionPerformed
-
-    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        String pathto = "";
-        if (logAs.equals("Admin")) {
-            pathto = "./Z\\Users";
-        } else {
-            pathto = "./Z\\Users\\" + logAs;
-        }
-        JFileChooser chooser = new JFileChooser(pathto);
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt");
-        chooser.setFileFilter(filtro);
-        int seleccion = chooser.showSaveDialog(Editor);
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            try {
-                File fichero = new File(chooser.getSelectedFile().getAbsolutePath()+ ".txt");
-                fw = new FileWriter(fichero);
-                bw = new BufferedWriter(fw);
-                String text = editorpane.getText();
-                bw.write(text);
-                bw.flush();
-                JOptionPane.showMessageDialog(Editor, "Archivo guardado exitosamente.");
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    bw.close();
-                    fw.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }//GEN-LAST:event_guardarActionPerformed
-
     private void cambiarcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarcActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cambiarcActionPerformed
@@ -1153,6 +1118,230 @@ public class Miniwindows extends javax.swing.JFrame {
     private void apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_apagarActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        this.Archivos.pack();
+        this.Archivos.setLocationRelativeTo(this);
+        this.Archivos.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void btnItalicsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnItalicsMouseClicked
+        if (italics) {
+            italics = false;
+        } else {
+            italics = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnItalicsMouseClicked
+
+    private void btnBoldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBoldMouseClicked
+        if (bold) {
+            bold = false;
+        } else {
+            bold = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            italics = StyleConstants.isItalic(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnBoldMouseClicked
+
+    private void comboxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxSizeActionPerformed
+        String Size;
+        Size = (String) this.comboxSize.getSelectedItem();
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            italics = StyleConstants.isItalic(as);
+            underline = StyleConstants.isUnderline(as);
+            size = Integer.parseInt(Size);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_comboxSizeActionPerformed
+
+    private void comboxFontsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxFontsActionPerformed
+        this.fontLetter = (String) this.comboxFonts.getSelectedItem();
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            bold = StyleConstants.isBold(as);
+            italics = StyleConstants.isItalic(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_comboxFontsActionPerformed
+
+    private void btnColorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnColorMouseClicked
+        colour = JColorChooser.showDialog(this, "Color", Color.blue);
+        doc = this.tpText.getStyledDocument();
+
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            italics = StyleConstants.isItalic(as);
+            underline = StyleConstants.isUnderline(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnColorMouseClicked
+
+    private void btnUnderlineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUnderlineMouseClicked
+        if (underline) {
+            underline = false;
+        } else {
+            underline = true;
+        }
+        doc = this.tpText.getStyledDocument();
+        int j = 0, posicion = 0;
+        for (int i = this.tpText.getSelectionStart(); i < this.tpText.getSelectionEnd(); i++) {
+            posicion = this.tpText.getSelectionStart() + j;
+            Element element = doc.getCharacterElement(posicion);
+            AttributeSet as = element.getAttributes();
+            colour = StyleConstants.getForeground(as);
+            fontLetter = StyleConstants.getFontFamily(as);
+            bold = StyleConstants.isBold(as);
+            italics = StyleConstants.isItalic(as);
+            size = StyleConstants.getFontSize(as);
+            //background = StyleConstants.getBackground(as);
+            Edit(posicion);
+            j++;
+        }
+    }//GEN-LAST:event_btnUnderlineMouseClicked
+
+    private void btnRightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRightMouseClicked
+        if (right) {
+            right = false;
+            left = true;
+        } else {
+            left = false;
+            center = false;
+            right = true;
+            justified = false;
+        }
+        EditIdent();
+    }//GEN-LAST:event_btnRightMouseClicked
+
+    private void btnJustifiedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJustifiedMouseClicked
+        if (justified) {
+            justified = false;
+            left = true;
+        } else {
+            left = false;
+            center = false;
+            right = false;
+            justified = true;
+        }
+        EditIdent();
+    }//GEN-LAST:event_btnJustifiedMouseClicked
+
+    private void btnLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLeftMouseClicked
+        left = true;
+        center = false;
+        right = false;
+        justified = false;
+        EditIdent();
+    }//GEN-LAST:event_btnLeftMouseClicked
+
+    private void btnCenterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCenterMouseClicked
+        if (center) {
+            center = false;
+            left = true;
+        } else {
+            left = false;
+            center = true;
+            right = false;
+            justified = false;
+        }
+        EditIdent();
+    }//GEN-LAST:event_btnCenterMouseClicked
+
+    private void mibtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveActionPerformed
+        saveFile(currentFile);
+    }//GEN-LAST:event_mibtnSaveActionPerformed
+
+    private void mibtnSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveAsActionPerformed
+        final File dirToLock = new File(path+"\\Documents");
+        JFileChooser fc = new JFileChooser(dirToLock);
+        fc.setFileView(new FileView() {
+            @Override
+            public Boolean isTraversable(File f) {
+                return dirToLock.equals(f);
+            }
+        });
+        disableNav(fc);
+        int returnVal = fc.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = new File(fc.getSelectedFile()+".editordoc");
+            saveFile(file);
+        }
+
+    }//GEN-LAST:event_mibtnSaveAsActionPerformed
+
+    private void mibtnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnLoadActionPerformed
+        if (JOptionPane.showConfirmDialog(null,
+            "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
+        final File dirToLock = new File(path+"\\Documents");
+        JFileChooser fc = new JFileChooser(dirToLock);
+        fc.setFileView(new FileView() {
+            @Override
+            public Boolean isTraversable(File f) {
+                return dirToLock.equals(f);
+            }
+        });
+        disableNav(fc);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            openFile(fc.getSelectedFile());
+            mibtnSave.setEnabled(true);
+        }
+        }
+    }//GEN-LAST:event_mibtnLoadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1198,7 +1387,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JDialog MP3Player;
     private javax.swing.JDialog Mensajes;
     private javax.swing.JDialog Visor;
-    private javax.swing.JMenuItem abrir_archivo;
     private javax.swing.JButton addMusic;
     private javax.swing.JMenuItem addUser;
     private javax.swing.JButton agregar;
@@ -1206,28 +1394,30 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JMenuItem apagar;
     private javax.swing.JTree archivos;
     private javax.swing.JButton backsong;
-    private javax.swing.JMenuBar barEditor;
     private javax.swing.JMenuBar barPrincipal;
-    private javax.swing.JToggleButton bold;
+    private javax.swing.JButton btnBold;
+    private javax.swing.JButton btnCenter;
+    private javax.swing.JButton btnColor;
+    private javax.swing.JButton btnItalics;
+    private javax.swing.JButton btnJustified;
+    private javax.swing.JButton btnLeft;
+    private javax.swing.JButton btnRight;
+    private javax.swing.JButton btnUnderline;
     private javax.swing.JMenuItem cambiarc;
     private javax.swing.JMenuItem change;
+    private javax.swing.JComboBox<String> comboxFonts;
+    private javax.swing.JComboBox<String> comboxSize;
     private javax.swing.JTextPane consola;
     private javax.swing.JButton delsong;
     private com.bolivia.panel.JCPanel deskpanel;
-    private javax.swing.JTextPane editorpane;
     private javax.swing.JButton forwardsong;
-    private javax.swing.JMenuItem guardar;
-    private javax.swing.JMenuItem guardarC;
     private javax.swing.JMenu hora;
-    private javax.swing.JToggleButton italic;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1235,23 +1425,24 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator4;
-    private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
     private javax.swing.JMenu logOut;
-    private javax.swing.JMenu menu_archivos;
+    private javax.swing.JMenuItem mibtnLoad;
+    private javax.swing.JMenuItem mibtnSave;
+    private javax.swing.JMenuItem mibtnSaveAs;
     private javax.swing.JMenu name;
     private javax.swing.JButton opencmd;
     private javax.swing.JButton openplayer;
@@ -1263,15 +1454,8 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JTextField tf_adduser;
     private javax.swing.JTextField tf_dir;
     private javax.swing.JTextField tf_user;
-    private javax.swing.JToggleButton underline;
+    private javax.swing.JTextPane tpText;
     // End of variables declaration//GEN-END:variables
-    String logAs;
-    String admin = "Admin";
-    String password = "password";
-    ArrayList<User> users = new ArrayList();
-    String path = "./Z\\Users";
-    ArrayList<File> music = new ArrayList();
-    MP3Player player;
 
     public boolean createDirectory(String path) {
         if (new File(path).exists()) {
@@ -1334,6 +1518,130 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
+    }    private void Edit(int posicion) {
+        doc = this.tpText.getStyledDocument();
+        Style estilo = this.tpText.addStyle("miEstilo", null);
+        StyleConstants.setForeground(estilo, colour);
+        StyleConstants.setFontFamily(estilo, fontLetter);
+        StyleConstants.setFontSize(estilo, size);
+        StyleConstants.setBold(estilo, bold);
+        StyleConstants.setItalic(estilo, italics);
+        StyleConstants.setUnderline(estilo, underline);
+        doc.setCharacterAttributes(posicion, 1, this.tpText.getStyle("miEstilo"), true);
+        documento = this.tpText.getStyledDocument();
     }
 
+    public void EditIdent() {
+        doc = this.tpText.getStyledDocument();
+        Style estilo = this.tpText.addStyle("miEstilo", null);
+        if (left) {
+            StyleConstants.setAlignment(estilo, StyleConstants.ALIGN_LEFT);
+            doc.setParagraphAttributes(this.tpText.getSelectionStart(), this.tpText.getSelectionEnd() - this.tpText.getSelectionStart(), this.tpText.getStyle("miEstilo"), true);
+        }
+        if (center) {
+            StyleConstants.setAlignment(estilo, StyleConstants.ALIGN_CENTER);
+            doc.setParagraphAttributes(this.tpText.getSelectionStart(), this.tpText.getSelectionEnd() - this.tpText.getSelectionStart(), this.tpText.getStyle("miEstilo"), true);
+        }
+        if (right) {
+            StyleConstants.setAlignment(estilo, StyleConstants.ALIGN_RIGHT);
+            doc.setParagraphAttributes(this.tpText.getSelectionStart(), this.tpText.getSelectionEnd() - this.tpText.getSelectionStart(), this.tpText.getStyle("miEstilo"), true);
+        }
+        if (justified) {
+            StyleConstants.setAlignment(estilo, StyleConstants.ALIGN_JUSTIFIED);
+            doc.setParagraphAttributes(this.tpText.getSelectionStart(), this.tpText.getSelectionEnd() - this.tpText.getSelectionStart(), this.tpText.getStyle("miEstilo"), true);
+        }
+    }
+
+    private void disableNav(Container c) {
+        for (Component x : c.getComponents()) {
+            if (x instanceof JComboBox) {
+                ((JComboBox) x).setEnabled(false);
+            } else if (x instanceof JButton) {
+                String text = ((JButton) x).getText();
+                if (text == null || text.isEmpty()) {
+                    ((JButton) x).setEnabled(false);
+                }
+            } else if (x instanceof Container) {
+                disableNav((Container) x);
+            }
+        }
+    }
+
+    public void openFile(File file) {
+        String cont = "";
+        try {
+
+            String filePath = file.getPath();
+
+            if (filePath.endsWith(".editordoc")) {
+                FileInputStream entrada = new FileInputStream(file);
+                ObjectInputStream objeto = new ObjectInputStream(entrada);
+                StyledDocument temp;
+                this.currentFile = file;
+                try {
+
+                    while ((temp = (StyledDocument) objeto.readObject()) != null) {
+                        documento = temp;
+                    }
+                } catch (Exception e) {
+
+                }
+
+                entrada.close();
+                try {
+                    cont = this.documento.getText(0, this.documento.getLength());
+                } catch (BadLocationException e) {
+                  
+                }
+                this.tpText.setText(cont);
+                this.tpText.setStyledDocument((StyledDocument) documento);
+            } else {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void saveFile(File archivo) {
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream(archivo);
+            bw = new ObjectOutputStream(fw);
+            bw.writeObject(documento);
+        } catch (Exception e) {
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+       private String fontLetter = "Monospaced";
+    private boolean bold = false;
+    private boolean italics = false;
+    private boolean underline = false;
+    private int size = 12;
+    private Color colour = Color.black;
+    private Color background = Color.white;
+    private JFileChooser fileSelect = new JFileChooser();
+    public File currentFile;
+    private boolean center;
+    private boolean left;
+    private boolean right;
+    private boolean justified;
+    private boolean nuevo=true;
+    StyledDocument doc;
+    Document documento;
+    String logAs;
+    String admin = "Admin";
+    String password = "password";
+    ArrayList<User> users = new ArrayList();
+    String path = "./Z\\Users";
+    ArrayList<File> music = new ArrayList();
+    MP3Player player;
+    DefaultComboBoxModel fonts;
 }
