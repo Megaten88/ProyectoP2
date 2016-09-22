@@ -23,6 +23,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.filechooser.FileView;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -55,6 +58,7 @@ import javax.swing.text.StyledDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -86,10 +90,13 @@ public class Miniwindows extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-                String[] font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+        String[] font = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fonts = new DefaultComboBoxModel(font);
         this.comboxFonts.setModel(fonts);
         this.jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        if (fileusers.exists()) {
+            
+        }
     }
 
     /**
@@ -141,7 +148,7 @@ public class Miniwindows extends javax.swing.JFrame {
         tf_dir = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablafiles = new javax.swing.JTable();
         Editor = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -465,11 +472,16 @@ public class Miniwindows extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Z");
         archivos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        archivos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                archivosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(archivos);
 
         jLabel4.setText("Buscar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablafiles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -477,7 +489,7 @@ public class Miniwindows extends javax.swing.JFrame {
                 "Nombre", "Fecha", "Tipo", "Tamaño"
             }
         ));
-        jScrollPane4.setViewportView(jTable1);
+        jScrollPane4.setViewportView(tablafiles);
 
         javax.swing.GroupLayout ArchivosLayout = new javax.swing.GroupLayout(Archivos.getContentPane());
         Archivos.getContentPane().setLayout(ArchivosLayout);
@@ -877,7 +889,8 @@ public class Miniwindows extends javax.swing.JFrame {
             listaMusic.setModel(new DefaultListModel());
             DefaultTreeModel modelo = (DefaultTreeModel) archivos.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
-            listar_todo(new File(path), raiz);
+            String pathU = "./Z";
+            listar_todo(new File(pathU), raiz);
             modelo.reload();
             archivos.setModel(modelo);
 
@@ -900,7 +913,6 @@ public class Miniwindows extends javax.swing.JFrame {
                 listaMusic.setModel(new DefaultListModel());
                 DefaultTreeModel modelo = (DefaultTreeModel) archivos.getModel();
                 DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
-                raiz.removeAllChildren();
                 listar_todo(new File(path), raiz);
                 archivos.setModel(modelo);
             } else {
@@ -1112,7 +1124,11 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        // TODO add your handling code here:
+        if (tf_adduser != null && pf_addpass!= null) {
+            users.add(new User(tf_adduser.getText(), pf_addpass.getText()));
+            addUsers();
+            cargarUsers();
+        }
     }//GEN-LAST:event_agregarActionPerformed
 
     private void apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarActionPerformed
@@ -1306,7 +1322,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_mibtnSaveActionPerformed
 
     private void mibtnSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveAsActionPerformed
-        final File dirToLock = new File(path+"\\Documents");
+        final File dirToLock = new File(path + "\\Documents");
         JFileChooser fc = new JFileChooser(dirToLock);
         fc.setFileView(new FileView() {
             @Override
@@ -1317,7 +1333,7 @@ public class Miniwindows extends javax.swing.JFrame {
         disableNav(fc);
         int returnVal = fc.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = new File(fc.getSelectedFile()+".editordoc");
+            File file = new File(fc.getSelectedFile() + ".editordoc");
             saveFile(file);
         }
 
@@ -1325,23 +1341,48 @@ public class Miniwindows extends javax.swing.JFrame {
 
     private void mibtnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnLoadActionPerformed
         if (JOptionPane.showConfirmDialog(null,
-            "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
-        final File dirToLock = new File(path+"\\Documents");
-        JFileChooser fc = new JFileChooser(dirToLock);
-        fc.setFileView(new FileView() {
-            @Override
-            public Boolean isTraversable(File f) {
-                return dirToLock.equals(f);
+                "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
+            final File dirToLock = new File(path + "\\Documents");
+            JFileChooser fc = new JFileChooser(dirToLock);
+            fc.setFileView(new FileView() {
+                @Override
+                public Boolean isTraversable(File f) {
+                    return dirToLock.equals(f);
+                }
+            });
+            disableNav(fc);
+            int returnVal = fc.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                openFile(fc.getSelectedFile());
+                mibtnSave.setEnabled(true);
             }
-        });
-        disableNav(fc);
-        int returnVal = fc.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            openFile(fc.getSelectedFile());
-            mibtnSave.setEnabled(true);
-        }
         }
     }//GEN-LAST:event_mibtnLoadActionPerformed
+
+    private void archivosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_archivosMouseClicked
+        DefaultMutableTreeNode seleccion = (DefaultMutableTreeNode) archivos.getLastSelectedPathComponent();
+        try {
+            if (!evt.isMetaDown()) {
+                File f = null;
+                try {
+                    f = new File(seleccion.toString());
+                } catch (Exception e) {
+                }
+
+                DefaultTableModel modelo = (DefaultTableModel) tablafiles.getModel();
+                modelo.setRowCount(0);
+                File[] files = f.listFiles();
+                for (File file : files) {
+                    BasicFileAttributes attr = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+                    Object[] arr = {file.getName(), attr.creationTime(), FilenameUtils.getExtension(file.getAbsolutePath()), file.length() + "KB"};
+                    modelo.addRow(arr);
+                }
+                this.tablafiles.setModel(modelo);
+            }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_archivosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1436,7 +1477,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
     private javax.swing.JMenu logOut;
@@ -1451,6 +1491,7 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JButton playpause;
     private com.bolivia.panel.JCPanel pn_agregar;
     private com.bolivia.panel.JCPanel pn_login;
+    private javax.swing.JTable tablafiles;
     private javax.swing.JTextField tf_adduser;
     private javax.swing.JTextField tf_dir;
     private javax.swing.JTextField tf_user;
@@ -1518,7 +1559,9 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-    }    private void Edit(int posicion) {
+    }
+
+    private void Edit(int posicion) {
         doc = this.tpText.getStyledDocument();
         Style estilo = this.tpText.addStyle("miEstilo", null);
         StyleConstants.setForeground(estilo, colour);
@@ -1591,7 +1634,7 @@ public class Miniwindows extends javax.swing.JFrame {
                 try {
                     cont = this.documento.getText(0, this.documento.getLength());
                 } catch (BadLocationException e) {
-                  
+
                 }
                 this.tpText.setText(cont);
                 this.tpText.setStyledDocument((StyledDocument) documento);
@@ -1620,7 +1663,50 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         }
     }
-       private String fontLetter = "Monospaced";
+    public void addUsers() {
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream(fileusers, true);
+            bw = new ObjectOutputStream(fw);
+            for (User u : users) {
+                bw.writeObject(u);
+            }
+            bw.flush();
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (Exception e) {
+
+            }
+        }
+    }
+    public void cargarUsers() {
+        try {
+            users = new ArrayList();
+            User temp;
+            if (fileusers.exists()) {
+                FileInputStream entrada = new FileInputStream(fileusers);
+                ObjectInputStream objeto = new ObjectInputStream(entrada);
+                try {
+                    while ((temp = (User) objeto.readObject()) != null) {
+                        users.add(temp);
+                    }
+                } catch (EOFException e) {
+
+                }
+                objeto.close();
+                entrada.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private String fontLetter = "Monospaced";
     private boolean bold = false;
     private boolean italics = false;
     private boolean underline = false;
@@ -1633,7 +1719,7 @@ public class Miniwindows extends javax.swing.JFrame {
     private boolean left;
     private boolean right;
     private boolean justified;
-    private boolean nuevo=true;
+    private boolean nuevo = true;
     StyledDocument doc;
     Document documento;
     String logAs;
@@ -1644,4 +1730,5 @@ public class Miniwindows extends javax.swing.JFrame {
     ArrayList<File> music = new ArrayList();
     MP3Player player;
     DefaultComboBoxModel fonts;
+    File fileusers = new File("./Z/Users.miniwindows");
 }
