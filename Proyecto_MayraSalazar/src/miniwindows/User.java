@@ -19,7 +19,7 @@ public class User implements Serializable {
     private String password;
     private ArrayList<Actividad> actividades;
     private ArrayList<Mensajes> mensajes;
-    private static long SerialVersionUID = 866L;
+    private static long SerialVersionUID = 777L;
 
     public User(String user, String password) {
         this.user = user;

@@ -76,12 +76,12 @@ public class Miniwindows extends javax.swing.JFrame {
         this.pn_login.setVisible(true);
         this.pn_agregar.setVisibleLogo(false);
         this.agregarUs.setTitle("Agrega un usuario");
-        this.pn_agregar.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./space.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
+        this.pn_agregar.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./space2.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.pn_agregar.setVisible(true);
         this.setTitle("Log to MiniWindows System");
         this.consola.setCaretColor(Color.white);
         this.Consola.setTitle("MiniWindows Console");
-        this.deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./flor.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
+        this.deskpanel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().createImage("./spacep.jpg").getScaledInstance(this.getWidth(), this.getHeight(), 0)));
         this.Desktop.setTitle("Welcome to MiniWindows!");
         this.MP3Player.setTitle("MiniWindowsPlayer");
         this.Editor.setTitle("Miniwindows Editor");
@@ -96,7 +96,7 @@ public class Miniwindows extends javax.swing.JFrame {
         this.comboxFonts.setModel(fonts);
         this.jScrollPane1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         if (fileusers.exists()) {
-            
+            cargarUsers();
         }
     }
 
@@ -113,8 +113,11 @@ public class Miniwindows extends javax.swing.JFrame {
         deskpanel = new com.bolivia.panel.JCPanel();
         opencmd = new javax.swing.JButton();
         openplayer = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        openeditor = new javax.swing.JButton();
+        openarchives = new javax.swing.JButton();
+        openmessages = new javax.swing.JButton();
+        opencalendar = new javax.swing.JButton();
+        openimages = new javax.swing.JButton();
         barPrincipal = new javax.swing.JMenuBar();
         hora = new javax.swing.JMenu();
         name = new javax.swing.JMenu();
@@ -176,6 +179,13 @@ public class Miniwindows extends javax.swing.JFrame {
         mibtnSaveAs = new javax.swing.JMenuItem();
         mibtnLoad = new javax.swing.JMenuItem();
         Visor = new javax.swing.JDialog();
+        ewe = new javax.swing.JPanel();
+        img1 = new javax.swing.JLabel();
+        largeImage = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
+        img2 = new javax.swing.JLabel();
+        img3 = new javax.swing.JLabel();
+        back1 = new javax.swing.JButton();
         Mensajes = new javax.swing.JDialog();
         agregarUs = new javax.swing.JDialog();
         pn_agregar = new com.bolivia.panel.JCPanel();
@@ -192,68 +202,117 @@ public class Miniwindows extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        opencmd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/cmd.jpg"))); // NOI18N
+        Desktop.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        opencmd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/Apps-Command-Prompt-Metro-icon.png"))); // NOI18N
+        opencmd.setBorderPainted(false);
+        opencmd.setContentAreaFilled(false);
         opencmd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opencmdActionPerformed(evt);
             }
         });
 
-        openplayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/player.png"))); // NOI18N
+        openplayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/music-cd.png"))); // NOI18N
+        openplayer.setBorderPainted(false);
+        openplayer.setContentAreaFilled(false);
         openplayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openplayerActionPerformed(evt);
             }
         });
 
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        openeditor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/sketch.png"))); // NOI18N
+        openeditor.setBorderPainted(false);
+        openeditor.setContentAreaFilled(false);
+        openeditor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                openeditorActionPerformed(evt);
             }
         });
 
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        openarchives.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/folder.png"))); // NOI18N
+        openarchives.setBorderPainted(false);
+        openarchives.setContentAreaFilled(false);
+        openarchives.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                openarchivesActionPerformed(evt);
             }
         });
+
+        openmessages.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/interface.png"))); // NOI18N
+        openmessages.setContentAreaFilled(false);
+
+        opencalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/days.png"))); // NOI18N
+        opencalendar.setContentAreaFilled(false);
+
+        openimages.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/video.png"))); // NOI18N
+        openimages.setContentAreaFilled(false);
 
         javax.swing.GroupLayout deskpanelLayout = new javax.swing.GroupLayout(deskpanel);
         deskpanel.setLayout(deskpanelLayout);
         deskpanelLayout.setHorizontalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deskpanelLayout.createSequentialGroup()
-                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(opencmd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(openplayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 637, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(deskpanelLayout.createSequentialGroup()
+                        .addComponent(openmessages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(28, 28, 28))
+                    .addGroup(deskpanelLayout.createSequentialGroup()
+                        .addComponent(opencmd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18))
+                    .addGroup(deskpanelLayout.createSequentialGroup()
+                        .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(deskpanelLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(openeditor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(openarchives, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(opencalendar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(openimages))
+                .addGap(510, 510, 510))
         );
         deskpanelLayout.setVerticalGroup(
             deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(deskpanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(opencmd, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(openplayer, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(deskpanelLayout.createSequentialGroup()
+                        .addGroup(deskpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(opencmd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opencalendar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(openplayer))
+                    .addComponent(openimages, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(openeditor, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(openarchives)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(openmessages)
+                .addContainerGap())
         );
 
-        barPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        barPrincipal.setBackground(new java.awt.Color(51, 51, 51));
         barPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         barPrincipal.setForeground(new java.awt.Color(255, 255, 255));
+        barPrincipal.setBorderPainted(false);
         barPrincipal.add(hora);
         barPrincipal.add(name);
 
-        logOut.setText("Log");
+        logOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/power-button.png"))); // NOI18N
 
         change.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         change.setText("Cerrar Sesión");
+        change.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeActionPerformed(evt);
+            }
+        });
         logOut.add(change);
 
         cambiarc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
@@ -291,11 +350,11 @@ public class Miniwindows extends javax.swing.JFrame {
         Desktop.getContentPane().setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+            .addComponent(deskpanel, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         Consola.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -688,15 +747,73 @@ public class Miniwindows extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        ewe.setBackground(new java.awt.Color(204, 204, 255));
+
+        img1.setText("jLabel7");
+
+        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/arrowhead-thin-outline-to-the-left.png"))); // NOI18N
+        back.setBorderPainted(false);
+        back.setContentAreaFilled(false);
+        back.setOpaque(false);
+
+        img2.setText("jLabel7");
+
+        img3.setText("jLabel7");
+
+        back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/miniwindows/arrow-point-to-right.png"))); // NOI18N
+        back1.setBorderPainted(false);
+        back1.setContentAreaFilled(false);
+
+        javax.swing.GroupLayout eweLayout = new javax.swing.GroupLayout(ewe);
+        ewe.setLayout(eweLayout);
+        eweLayout.setHorizontalGroup(
+            eweLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eweLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(eweLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(largeImage, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(eweLayout.createSequentialGroup()
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+        eweLayout.setVerticalGroup(
+            eweLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eweLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(largeImage, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(eweLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(eweLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(eweLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(eweLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(eweLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
+
         javax.swing.GroupLayout VisorLayout = new javax.swing.GroupLayout(Visor.getContentPane());
         Visor.getContentPane().setLayout(VisorLayout);
         VisorLayout.setHorizontalGroup(
             VisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(ewe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         VisorLayout.setVerticalGroup(
             VisorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(ewe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout MensajesLayout = new javax.swing.GroupLayout(Mensajes.getContentPane());
@@ -867,6 +984,7 @@ public class Miniwindows extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (tf_user.getText().equals(admin) && pf_password.getText().equals(password)) {
+            this.addUser.setVisible(true);
             logAs = tf_user.getText();
             this.deskpanel.setVisibleLogo(false);
             this.Desktop.pack();
@@ -883,6 +1001,7 @@ public class Miniwindows extends javax.swing.JFrame {
             listar_todo(new File(pathU), raiz);
             modelo.reload();
             archivos.setModel(modelo);
+            this.setVisible(false);
 
         } else {
             boolean isUser = false;
@@ -892,6 +1011,7 @@ public class Miniwindows extends javax.swing.JFrame {
                 }
             }
             if (isUser) {
+                this.addUser.setVisible(false);
                 logAs = tf_user.getText();
                 this.deskpanel.setVisibleLogo(false);
                 this.Desktop.pack();
@@ -905,6 +1025,7 @@ public class Miniwindows extends javax.swing.JFrame {
                 DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
                 listar_todo(new File(path), raiz);
                 archivos.setModel(modelo);
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "No existe el usuario.");
             }
@@ -1097,14 +1218,22 @@ public class Miniwindows extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_backsongActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void openeditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openeditorActionPerformed
         this.Editor.pack();
         this.Editor.setLocationRelativeTo(this.Desktop);
         this.Editor.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_openeditorActionPerformed
 
     private void cambiarcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarcActionPerformed
-        // TODO add your handling code here:
+        if (logAs.equals(admin)) {
+            password = JOptionPane.showInputDialog("Ingrese nueva contraseña");
+        }else{
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getUser().equals(logAs)) {
+                    users.get(i).setPassword(JOptionPane.showInputDialog("Ingrese nueva contraseña"));
+                }
+            }
+        }
     }//GEN-LAST:event_cambiarcActionPerformed
 
     private void addUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserActionPerformed
@@ -1114,22 +1243,36 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserActionPerformed
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if (tf_adduser != null && pf_addpass!= null) {
-            users.add(new User(tf_adduser.getText(), pf_addpass.getText()));
-            addUsers();
-            cargarUsers();
+        if (tf_adduser != null && pf_addpass != null) {
+            try {
+                users.add(new User(tf_adduser.getText(), pf_addpass.getText()));
+                addUsers();
+                JOptionPane.showMessageDialog(this.agregarUs, "Usuario agregado exitosamente");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this.agregarUs, "Ningún campo debe estar vacío");
         }
+        try {
+            cargarUsers();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        tf_adduser.setText("");
+        pf_addpass.setText("");
     }//GEN-LAST:event_agregarActionPerformed
 
     private void apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_apagarActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void openarchivesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openarchivesActionPerformed
         this.Archivos.pack();
         this.Archivos.setLocationRelativeTo(this);
         this.Archivos.setVisible(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_openarchivesActionPerformed
 
     private void comboxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxSizeActionPerformed
         String Size;
@@ -1196,7 +1339,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_mibtnSaveActionPerformed
 
     private void mibtnSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveAsActionPerformed
-        final File dirToLock = new File(path+"\\Documents");
+        final File dirToLock = new File(path + "\\Documents");
         JFileChooser fc = new JFileChooser(dirToLock);
         fc.setFileView(new FileView() {
             @Override
@@ -1207,7 +1350,7 @@ public class Miniwindows extends javax.swing.JFrame {
         disableNav(fc);
         int returnVal = fc.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = new File(fc.getSelectedFile()+".editordoc");
+            File file = new File(fc.getSelectedFile() + ".editordoc");
             saveFile(file);
         }
 
@@ -1215,21 +1358,21 @@ public class Miniwindows extends javax.swing.JFrame {
 
     private void mibtnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnLoadActionPerformed
         if (JOptionPane.showConfirmDialog(null,
-            "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
-        final File dirToLock = new File(path+"\\Documents");
-        JFileChooser fc = new JFileChooser(dirToLock);
-        fc.setFileView(new FileView() {
-            @Override
-            public Boolean isTraversable(File f) {
-                return dirToLock.equals(f);
+                "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
+            final File dirToLock = new File(path + "\\Documents");
+            JFileChooser fc = new JFileChooser(dirToLock);
+            fc.setFileView(new FileView() {
+                @Override
+                public Boolean isTraversable(File f) {
+                    return dirToLock.equals(f);
+                }
+            });
+            disableNav(fc);
+            int returnVal = fc.showOpenDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                openFile(fc.getSelectedFile());
+                mibtnSave.setEnabled(true);
             }
-        });
-        disableNav(fc);
-        int returnVal = fc.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            openFile(fc.getSelectedFile());
-            mibtnSave.setEnabled(true);
-        }
         }
     }//GEN-LAST:event_mibtnLoadActionPerformed
 
@@ -1280,7 +1423,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnItalicsActionPerformed
 
     private void btnUnderlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnderlineActionPerformed
-         if (underline) {
+        if (underline) {
             underline = false;
         } else {
             underline = true;
@@ -1303,7 +1446,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUnderlineActionPerformed
 
     private void btnCenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCenterActionPerformed
-       if (center) {
+        if (center) {
             center = false;
             left = true;
         } else {
@@ -1324,7 +1467,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLeftActionPerformed
 
     private void btnRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRightActionPerformed
-         if (right) {
+        if (right) {
             right = false;
             left = true;
         } else {
@@ -1337,7 +1480,7 @@ public class Miniwindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRightActionPerformed
 
     private void btnJustifiedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustifiedActionPerformed
-         if (justified) {
+        if (justified) {
             justified = false;
             left = true;
         } else {
@@ -1373,6 +1516,18 @@ public class Miniwindows extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_archivosMouseClicked
+
+    private void changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeActionPerformed
+       this.Desktop.dispose();
+       this.Archivos.dispose();
+       this.Consola.dispose();
+       this.Calendar.dispose();
+       this.Editor.dispose();
+       this.MP3Player.dispose();
+       this.Mensajes.dispose();
+       this.Visor.dispose();
+       this.setVisible(true);
+    }//GEN-LAST:event_changeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1424,6 +1579,8 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JDialog agregarUs;
     private javax.swing.JMenuItem apagar;
     private javax.swing.JTree archivos;
+    private javax.swing.JButton back;
+    private javax.swing.JButton back1;
     private javax.swing.JButton backsong;
     private javax.swing.JMenuBar barPrincipal;
     private javax.swing.JButton btnBold;
@@ -1441,14 +1598,16 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JTextPane consola;
     private javax.swing.JButton delsong;
     private com.bolivia.panel.JCPanel deskpanel;
+    private javax.swing.JPanel ewe;
     private javax.swing.JButton forwardsong;
     private javax.swing.JMenu hora;
+    private javax.swing.JLabel img1;
+    private javax.swing.JLabel img2;
+    private javax.swing.JLabel img3;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton9;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1472,8 +1631,8 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator5;
     private javax.swing.JToolBar.Separator jSeparator6;
     private javax.swing.JToolBar.Separator jSeparator7;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JLabel largeImage;
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
     private javax.swing.JMenu logOut;
@@ -1481,7 +1640,12 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JMenuItem mibtnSave;
     private javax.swing.JMenuItem mibtnSaveAs;
     private javax.swing.JMenu name;
+    private javax.swing.JButton openarchives;
+    private javax.swing.JButton opencalendar;
     private javax.swing.JButton opencmd;
+    private javax.swing.JButton openeditor;
+    private javax.swing.JButton openimages;
+    private javax.swing.JButton openmessages;
     private javax.swing.JButton openplayer;
     private javax.swing.JPasswordField pf_addpass;
     private javax.swing.JPasswordField pf_password;
@@ -1660,11 +1824,12 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         }
     }
+
     public void addUsers() {
         FileOutputStream fw = null;
         ObjectOutputStream bw = null;
         try {
-            fw = new FileOutputStream(fileusers, true);
+            fw = new FileOutputStream(fileusers, false);
             bw = new ObjectOutputStream(fw);
             for (User u : users) {
                 bw.writeObject(u);
@@ -1682,6 +1847,7 @@ public class Miniwindows extends javax.swing.JFrame {
             }
         }
     }
+
     public void cargarUsers() {
         try {
             users = new ArrayList();
