@@ -1334,49 +1334,6 @@ public class Miniwindows extends javax.swing.JFrame {
             justified = false;
         }
         EditIdent();
-<<<<<<< HEAD
-    }//GEN-LAST:event_btnCenterMouseClicked
-
-    private void mibtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveActionPerformed
-        saveFile(currentFile);
-    }//GEN-LAST:event_mibtnSaveActionPerformed
-
-    private void mibtnSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnSaveAsActionPerformed
-        final File dirToLock = new File(path + "\\Documents");
-        JFileChooser fc = new JFileChooser(dirToLock);
-        fc.setFileView(new FileView() {
-            @Override
-            public Boolean isTraversable(File f) {
-                return dirToLock.equals(f);
-            }
-        });
-        disableNav(fc);
-        int returnVal = fc.showSaveDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = new File(fc.getSelectedFile() + ".editordoc");
-            saveFile(file);
-        }
-
-    }//GEN-LAST:event_mibtnSaveAsActionPerformed
-
-    private void mibtnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mibtnLoadActionPerformed
-        if (JOptionPane.showConfirmDialog(null,
-                "¿Está seguro de dejar de trabajar con el archivo?") == 0) {
-            final File dirToLock = new File(path + "\\Documents");
-            JFileChooser fc = new JFileChooser(dirToLock);
-            fc.setFileView(new FileView() {
-                @Override
-                public Boolean isTraversable(File f) {
-                    return dirToLock.equals(f);
-                }
-            });
-            disableNav(fc);
-            int returnVal = fc.showOpenDialog(this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                openFile(fc.getSelectedFile());
-                mibtnSave.setEnabled(true);
-            }
-=======
     }//GEN-LAST:event_btnRightActionPerformed
 
     private void btnJustifiedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustifiedActionPerformed
@@ -1388,7 +1345,6 @@ public class Miniwindows extends javax.swing.JFrame {
             center = false;
             right = false;
             justified = true;
->>>>>>> agile
         }
         EditIdent();
     }//GEN-LAST:event_btnJustifiedActionPerformed
@@ -1511,8 +1467,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-<<<<<<< HEAD
-=======
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator5;
@@ -1520,7 +1474,6 @@ public class Miniwindows extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator7;
     private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
->>>>>>> agile
     private javax.swing.JLabel lb_playing;
     private javax.swing.JList<String> listaMusic;
     private javax.swing.JMenu logOut;
