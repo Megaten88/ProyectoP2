@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 public class HiloHora extends Thread{
     private JMenu barra;
     private boolean vive;
+    private Date hora;
 
     public HiloHora(JMenu barra) {
         this.barra = barra;
@@ -40,7 +41,7 @@ public class HiloHora extends Thread{
     public void run() {
         while(vive){
             SimpleDateFormat fm = new SimpleDateFormat("HH:mm");
-            Date hora = new Date();
+            hora = new Date();
             barra.setText("Hora: " + fm.format(hora));
         }
     }

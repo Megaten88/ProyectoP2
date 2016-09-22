@@ -41,10 +41,16 @@ public class Mensajes implements Serializable{
     }
 
     public void setMensajesUser1 (String mensajes) {
-        this.mensajes += user1 + ": " + mensajes;
+        this.mensajes += user1.getUser() + ": " + mensajes +  "\n";
     }
     public void setMensajesUser2 (String mensajes) {
-        this.mensajes += user2 + ": " + mensajes;
+        this.mensajes += user2.getUser() + ": " + mensajes+ "\n";
     }
+
+    @Override
+    public String toString() {
+        return "Mensajes{" + "mensajes=" + mensajes + '}';
+    }
+    
     
 }

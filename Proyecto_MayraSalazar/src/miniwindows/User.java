@@ -18,7 +18,7 @@ public class User implements Serializable {
     private String user;
     private String password;
     private ArrayList<Actividad> actividades;
-    private ArrayList<Mensajes> mensajes;
+    private ArrayList<File> mensajes;
     private static long SerialVersionUID = 777L;
 
     public User(String user, String password) {
@@ -46,6 +46,14 @@ public class User implements Serializable {
         return password;
     }
 
+    public ArrayList<Actividad> getActividades() {
+        return actividades;
+    }
+
+    public ArrayList<File> getMensajes() {
+        return mensajes;
+    }
+    
     public void setPassword(String password) {
         this.password = password;
     }
